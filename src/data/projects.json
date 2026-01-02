@@ -1,0 +1,58 @@
+[
+  {
+    "id": "project-1",
+    "name": "Project Alpha",
+    "description": "A full-stack web application built with modern technologies. Features real-time updates and a responsive design.",
+    "image": "/images/projects/placeholder-1.svg",
+    "url": "https://github.com/matmcw"
+  },
+  {
+    "id": "project-2",
+    "name": "Project Beta",
+    "description": "An innovative tool for developers that streamlines workflows and automates repetitive tasks.",
+    "image": "/images/projects/placeholder-2.svg",
+    "url": "https://github.com/matmcw"
+  },
+  {
+    "id": "project-3",
+    "name": "Project Gamma",
+    "description": "A mobile-first application designed to enhance productivity and organization for everyday users.",
+    "image": "/images/projects/placeholder-3.svg",
+    "url": "https://github.com/matmcw"
+  },
+  {
+    "id": "project-4",
+    "name": "Project Delta",
+    "description": "An AI-powered solution that leverages machine learning to provide intelligent recommendations.",
+    "image": "/images/projects/placeholder-4.svg",
+    "url": "https://github.com/matmcw"
+  },
+  {
+    "id": "project-5",
+    "name": "Project Epsilon",
+    "description": "A creative platform for artists and designers to showcase their work and connect with clients.",
+    "image": "/images/projects/placeholder-5.svg",
+    "url": "https://github.com/matmcw"
+  },
+  {
+    "id": "project-6",
+    "name": "Project Zeta",
+    "description": "A data visualization dashboard that transforms complex datasets into actionable insights.",
+    "image": "/images/projects/placeholder-6.svg",
+    "url": "https://github.com/matmcw"
+  },
+  {
+    "id": "project-7",
+    "name": "Project Eta",
+    "description": "An open-source library that simplifies common development patterns and best practices.",
+    "image": "/images/projects/placeholder-7.svg",
+    "url": "https://github.com/matmcw"
+  },
+  {
+    "id": "project-8",
+    "name": "Project Theta",
+    "description": "A game built from scratch featuring custom physics engine and procedural generation.",
+    "image": "/images/projects/placeholder-8.svg",
+    "url": "https://github.com/matmcw"
+  }
+]

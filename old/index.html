@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Matthew McWilliams</title>
+		<script src="https://cdn.tailwindcss.com"></script>
+		<link
+			href="https://fonts.googleapis.com/css2?family=Exo:wght@400;700&display=swap"
+			rel="stylesheet"
+		/>
+		<link rel="stylesheet" href="styles.css" />
+	</head>
+	<body class="bg-gray-900 text-white">
+		<canvas id="c"></canvas>
+
+		<nav
+			class="fixed top-0 left-0 w-full bg-gray-800 p-4 flex justify-between items-center shadow-md"
+		>
+			<h1
+				class="text-xl font-bold cursor-pointer"
+				onclick="location.href='index.html'"
+			>
+				Matthew McWilliams
+			</h1>
+			<ul class="flex space-x-6">
+				<li>
+					<a href="aboutme.html" class="hover:text-blue-400"
+						>About Me</a
+					>
+				</li>
+				<li>
+					<a href="mystuff.html" class="hover:text-blue-400"
+						>My Stuff</a
+					>
+				</li>
+				<li>
+					<a href="contact.html" class="hover:text-blue-400"
+						>Contact</a
+					>
+				</li>
+			</ul>
+		</nav>
+
+		<section
+			class="flex flex-col justify-center items-center h-screen text-center"
+		>
+			<h2 class="animated-text" id="animatedText">
+				<span class="line line1">Hey,</span><br />
+				<span class="line line2">I'm Matthew.</span>
+			</h2>
+			<div class="mt-10 flex space-x-6 buttons">
+				<a
+					href="aboutme.html"
+					class="text-xl bg-blue-600 px-6 py-3 rounded-lg shadow-md transform transition hover:scale-110 hover:bg-blue-500"
+					>About Me</a
+				>
+				<a
+					href="mystuff.html"
+					class="text-xl bg-blue-600 px-6 py-3 rounded-lg shadow-md transform transition hover:scale-110 hover:bg-blue-500"
+					>My Stuff</a
+				>
+				<a
+					href="contact.html"
+					class="text-xl bg-blue-600 px-6 py-3 rounded-lg shadow-md transform transition hover:scale-110 hover:bg-blue-500"
+					>Contact</a
+				>
+			</div>
+		</section>
+
+		<script src="script.js"></script>
+	</body>
+</html>
