@@ -26,20 +26,6 @@ const Projects = () => {
         </FadeIn>
       </div>
 
-      {/* Navigation - at bottom */}
-      <div className="absolute bottom-6 left-0 right-0 z-10 text-center">
-        <FadeIn delay={300} duration={500}>
-          <p className="text-white/40 text-sm mb-3">Scroll or swipe to browse</p>
-          <div className="flex items-center justify-center gap-2">
-            {projectsData.map((_, index) => (
-              <div
-                key={index}
-                className="w-2 h-2 rounded-full bg-white/30"
-              />
-            ))}
-          </div>
-        </FadeIn>
-      </div>
     </div>
   )
 }

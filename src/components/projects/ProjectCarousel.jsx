@@ -15,7 +15,7 @@ const ProjectCarousel = ({ projects }) => {
   const cardCount = 10
   const anglePerCard = 36 // 360/10 = 36° between each card
   const scrollThreshold = 60
-  const radius = 430 // About half screen width
+  const radius = 520 // About half screen width, 20% larger
 
   // Get the index of the center card based on current rotation
   const getCenterIndex = useCallback(() => {
@@ -155,7 +155,8 @@ const ProjectCarousel = ({ projects }) => {
     }
   }
 
-  const isCenterCard = (index) => index === getCenterIndex()
+  // Check if card is one of the front 3 (center or adjacent)
+  const isFrontThree = (offsetAngle) => Math.abs(offsetAngle) <= 40
 
   return (
     <div
@@ -183,7 +184,7 @@ const ProjectCarousel = ({ projects }) => {
             <ProjectCard
               key={`${project.id}-${index}`}
               project={project}
-              isCenter={isCenterCard(index)}
+              enableHover={isFrontThree(offsetAngle)}
               onClick={() => handleCardClick(project, index)}
               style={style}
               rotationAngle={offsetAngle}

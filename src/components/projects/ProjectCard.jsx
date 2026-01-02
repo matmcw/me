@@ -2,7 +2,7 @@ import { useRef, useState } from 'react'
 
 const ProjectCard = ({
   project,
-  isCenter,
+  enableHover = false, // Enable hover tilt effect for front cards
   onClick,
   style,
   rotationAngle = 0, // The card's rotation relative to front (0 = facing front)
@@ -16,7 +16,7 @@ const ProjectCard = ({
   const isShowingBack = Math.abs(rotationAngle) > 90
 
   const handleMouseMove = (e) => {
-    if (!cardRef.current || !isCenter || isShowingBack) return
+    if (!cardRef.current || !enableHover || isShowingBack) return
 
     const rect = cardRef.current.getBoundingClientRect()
     const x = e.clientX - rect.left
@@ -44,7 +44,7 @@ const ProjectCard = ({
     if (!isShowingBack) onClick?.(project)
   }
 
-  const tiltTransform = isCenter && isHovering && !isShowingBack
+  const tiltTransform = enableHover && isHovering && !isShowingBack
     ? `perspective(1000px) rotateX(${tilt.x}deg) rotateY(${tilt.y}deg)`
     : ''
 
@@ -53,7 +53,7 @@ const ProjectCard = ({
       ref={cardRef}
       className={`
         absolute
-        w-[280px] h-[400px]
+        w-[336px] h-[480px]
         cursor-pointer
         transition-[transform,opacity] duration-500 ease-out
         ${className}
@@ -82,7 +82,7 @@ const ProjectCard = ({
             glass rounded-2xl overflow-hidden
             flex flex-col
             transition-opacity duration-200
-            ${isCenter && !isShowingBack ? 'hover:shadow-2xl hover:shadow-primary-blue/30' : ''}
+            ${enableHover && !isShowingBack ? 'hover:shadow-2xl hover:shadow-primary-blue/30' : ''}
           `}
           style={{
             backfaceVisibility: 'hidden',
@@ -121,7 +121,7 @@ const ProjectCard = ({
           </div>
 
           {/* Hover indicator */}
-          {isCenter && !isShowingBack && (
+          {enableHover && !isShowingBack && (
             <div className="absolute inset-0 rounded-2xl pointer-events-none">
               <div
                 className={`
