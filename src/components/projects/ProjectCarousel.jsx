@@ -3,81 +3,71 @@ import ProjectCard from './ProjectCard'
 
 const ProjectCarousel = ({ projects }) => {
   const [rotation, setRotation] = useState(0)
-  const [isAnimating, setIsAnimating] = useState(false)
   const [isDragging, setIsDragging] = useState(false)
   const containerRef = useRef(null)
-  const lastScrollY = useRef(0)
-  const scrollAccumulator = useRef(0)
   const dragStart = useRef({ x: 0, y: 0 })
   const dragAccumulator = useRef(0)
 
-  const cardCount = projects.length
-  const anglePerCard = 360 / cardCount
-  const scrollThreshold = 80 // Pixels of scroll before rotating
+  // Create exactly 10 cards (duplicate first 2 if needed)
+  const cards = projects.length >= 10
+    ? projects.slice(0, 10)
+    : [...projects, ...projects.slice(0, 10 - projects.length)]
+  const cardCount = 10
+  const anglePerCard = 36 // 360/10 = 36° between each card
+  const scrollThreshold = 60
+  const radius = 430 // About half screen width
 
   // Get the index of the center card based on current rotation
   const getCenterIndex = useCallback(() => {
-    // Normalize rotation to 0-360 range
     let normalizedRotation = ((rotation % 360) + 360) % 360
-    // Find which card index is closest to front
     const index = Math.round(normalizedRotation / anglePerCard) % cardCount
     return index
   }, [rotation, anglePerCard, cardCount])
 
-  // Snap to nearest card
-  const snapToCard = useCallback((targetIndex = null) => {
-    setIsAnimating(true)
+  const targetRotationRef = useRef(0) // Track where we're heading
+  const snapTimeoutRef = useRef(null)
 
-    let targetRotation
-    if (targetIndex !== null) {
-      // Snap to specific index
-      targetRotation = targetIndex * anglePerCard
-    } else {
-      // Snap to nearest
-      const currentIndex = getCenterIndex()
-      targetRotation = currentIndex * anglePerCard
+  // Rotate to a specific target (smooth, can be updated mid-animation)
+  const rotateTo = useCallback((targetSteps) => {
+    // Calculate target rotation based on steps from current target
+    const newTarget = targetRotationRef.current + targetSteps * anglePerCard
+    targetRotationRef.current = newTarget
+    setRotation(newTarget)
+
+    // Clear existing snap timeout
+    if (snapTimeoutRef.current) {
+      clearTimeout(snapTimeoutRef.current)
     }
 
-    // Handle wrap-around for smooth animation
-    const currentNormalized = ((rotation % 360) + 360) % 360
-    let diff = targetRotation - currentNormalized
+    // After scrolling stops, snap to nearest card
+    snapTimeoutRef.current = setTimeout(() => {
+      const snappedRotation = Math.round(targetRotationRef.current / anglePerCard) * anglePerCard
+      targetRotationRef.current = snappedRotation
+      setRotation(snappedRotation)
+    }, 500)
+  }, [anglePerCard])
 
-    // Take the shortest path
-    if (diff > 180) diff -= 360
-    if (diff < -180) diff += 360
-
-    setRotation(rotation + diff)
-
-    setTimeout(() => setIsAnimating(false), 500)
-  }, [rotation, anglePerCard, getCenterIndex])
-
-  // Handle wheel scroll
+  // Handle wheel scroll - works anywhere on the page
   useEffect(() => {
-    const container = containerRef.current
-    if (!container) return
-
     const handleWheel = (e) => {
+      // Only handle if we're on the projects page (carousel is mounted)
       e.preventDefault()
 
-      if (isAnimating) return
-
-      scrollAccumulator.current += e.deltaY
-
-      if (Math.abs(scrollAccumulator.current) >= scrollThreshold) {
-        const direction = scrollAccumulator.current > 0 ? 1 : -1
-        const currentIndex = getCenterIndex()
-        const newIndex = (currentIndex + direction + cardCount) % cardCount
-
-        snapToCard(newIndex)
-        scrollAccumulator.current = 0
+      if (Math.abs(e.deltaY) > scrollThreshold / 2) {
+        const direction = e.deltaY > 0 ? 1 : -1
+        rotateTo(direction)
       }
     }
 
-    container.addEventListener('wheel', handleWheel, { passive: false })
-    return () => container.removeEventListener('wheel', handleWheel)
-  }, [isAnimating, getCenterIndex, snapToCard, cardCount])
+    // Listen on document so scrolling works anywhere
+    document.addEventListener('wheel', handleWheel, { passive: false })
+    return () => {
+      document.removeEventListener('wheel', handleWheel)
+      if (snapTimeoutRef.current) clearTimeout(snapTimeoutRef.current)
+    }
+  }, [rotateTo])
 
-  // Handle touch/drag for mobile
+  // Touch/drag handlers
   const handleTouchStart = (e) => {
     setIsDragging(true)
     const touch = e.touches ? e.touches[0] : e
@@ -86,8 +76,7 @@ const ProjectCarousel = ({ projects }) => {
   }
 
   const handleTouchMove = (e) => {
-    if (!isDragging || isAnimating) return
-
+    if (!isDragging) return
     const touch = e.touches ? e.touches[0] : e
     const deltaX = touch.clientX - dragStart.current.x
     dragAccumulator.current = deltaX
@@ -97,13 +86,12 @@ const ProjectCarousel = ({ projects }) => {
     if (!isDragging) return
     setIsDragging(false)
 
-    if (Math.abs(dragAccumulator.current) > 50) {
-      const direction = dragAccumulator.current > 0 ? -1 : 1
-      const currentIndex = getCenterIndex()
-      const newIndex = (currentIndex + direction + cardCount) % cardCount
-      snapToCard(newIndex)
-    } else {
-      snapToCard()
+    // Calculate how many cards to move based on drag distance
+    const dragThreshold = 80
+    const steps = Math.round(dragAccumulator.current / -dragThreshold)
+
+    if (steps !== 0) {
+      rotateTo(steps)
     }
 
     dragAccumulator.current = 0
@@ -114,11 +102,13 @@ const ProjectCarousel = ({ projects }) => {
     const centerIndex = getCenterIndex()
 
     if (index === centerIndex) {
-      // Navigate to project URL
       window.open(project.url, '_blank')
     } else {
-      // Rotate to this card
-      snapToCard(index)
+      // Calculate shortest path to this card
+      let diff = index - centerIndex
+      if (diff > cardCount / 2) diff -= cardCount
+      if (diff < -cardCount / 2) diff += cardCount
+      rotateTo(diff)
     }
   }
 
@@ -132,51 +122,46 @@ const ProjectCarousel = ({ projects }) => {
     while (offsetAngle > 180) offsetAngle -= 360
     while (offsetAngle < -180) offsetAngle += 360
 
-    // 3D positioning
-    const radius = 600 // Distance from center (larger radius for bigger carousel)
     const angleRad = (offsetAngle * Math.PI) / 180
 
-    // Calculate position
+    // Position on circle
     const x = Math.sin(angleRad) * radius
-    const z = Math.cos(angleRad) * radius - radius // Offset so center card is at z=0
+    const z = Math.cos(angleRad) * radius - radius
 
-    // Scale based on z-depth
-    const maxZ = radius
-    const minScale = 0.5
-    const scale = minScale + (1 - minScale) * ((z + radius) / (2 * radius))
+    // Scale - front cards full size, back cards smaller
+    const depthFactor = (z + radius) / (2 * radius)
+    const scale = 0.7 + depthFactor * 0.3
 
-    // Opacity based on position (fade edges)
+    // Opacity - front 5 cards visible, back 5 faded
     const absAngle = Math.abs(offsetAngle)
-    const opacity = absAngle > 90 ? 0 : 1 - (absAngle / 90) * 0.6
-
-    // Y rotation (cards form a circle, facing outward from carousel center)
-    const rotateY = offsetAngle
+    const isFrontFacing = absAngle <= 90
+    const opacity = isFrontFacing ? 0.6 + depthFactor * 0.4 : 0.35
 
     // Z-index based on depth
     const zIndex = Math.round((z + radius) * 10)
 
     return {
-      transform: `
-        translateX(calc(-50% + ${x}px))
-        translateZ(${z}px)
-        scale(${scale})
-        rotateY(${rotateY}deg)
-      `,
-      opacity,
-      zIndex,
+      style: {
+        transform: `
+          translate(calc(-50% + ${x}px), -50%)
+          translateZ(${z}px)
+          scale(${scale})
+          rotateY(${offsetAngle}deg)
+        `,
+        opacity,
+        zIndex,
+      },
+      offsetAngle,
     }
   }
 
-  // Check if card is in center position
-  const isCenterCard = (index) => {
-    return index === getCenterIndex()
-  }
+  const isCenterCard = (index) => index === getCenterIndex()
 
   return (
     <div
       ref={containerRef}
-      className="relative w-full h-[calc(100vh-10rem)] min-h-[500px] overflow-hidden"
-      style={{ perspective: '1800px' }}
+      className="relative w-full h-full flex items-center justify-center"
+      style={{ perspective: '1200px' }}
       onTouchStart={handleTouchStart}
       onTouchMove={handleTouchMove}
       onTouchEnd={handleTouchEnd}
@@ -185,47 +170,28 @@ const ProjectCarousel = ({ projects }) => {
       onMouseUp={handleTouchEnd}
       onMouseLeave={isDragging ? handleTouchEnd : undefined}
     >
-      {/* Carousel container */}
+      {/* Carousel container - centered */}
       <div
-        className="absolute left-1/2 top-[38%] -translate-y-1/2"
+        className="relative"
         style={{
           transformStyle: 'preserve-3d',
-          transition: isAnimating ? 'transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)' : 'none',
         }}
       >
-        {projects.map((project, index) => (
-          <ProjectCard
-            key={project.id}
-            project={project}
-            isCenter={isCenterCard(index)}
-            onClick={() => handleCardClick(project, index)}
-            style={getCardStyle(index)}
-          />
-        ))}
+        {cards.map((project, index) => {
+          const { style, offsetAngle } = getCardStyle(index)
+          return (
+            <ProjectCard
+              key={`${project.id}-${index}`}
+              project={project}
+              isCenter={isCenterCard(index)}
+              onClick={() => handleCardClick(project, index)}
+              style={style}
+              rotationAngle={offsetAngle}
+            />
+          )
+        })}
       </div>
 
-      {/* Navigation hints */}
-      <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex items-center gap-2 text-white/40 text-sm">
-        <span>Scroll or swipe to browse</span>
-      </div>
-
-      {/* Card indicators */}
-      <div className="absolute bottom-12 left-1/2 -translate-x-1/2 flex items-center gap-2">
-        {projects.map((_, index) => (
-          <button
-            key={index}
-            onClick={() => snapToCard(index)}
-            className={`
-              w-2 h-2 rounded-full transition-all duration-300
-              ${isCenterCard(index)
-                ? 'bg-primary-blue w-6'
-                : 'bg-white/30 hover:bg-white/50'
-              }
-            `}
-            aria-label={`Go to project ${index + 1}`}
-          />
-        ))}
-      </div>
     </div>
   )
 }
