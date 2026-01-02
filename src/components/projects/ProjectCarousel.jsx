@@ -133,7 +133,7 @@ const ProjectCarousel = ({ projects }) => {
     while (offsetAngle < -180) offsetAngle += 360
 
     // 3D positioning
-    const radius = 500 // Distance from center (increased for bigger cards)
+    const radius = 600 // Distance from center (larger radius for bigger carousel)
     const angleRad = (offsetAngle * Math.PI) / 180
 
     // Calculate position
@@ -175,8 +175,8 @@ const ProjectCarousel = ({ projects }) => {
   return (
     <div
       ref={containerRef}
-      className="relative w-full h-[650px] overflow-hidden"
-      style={{ perspective: '1400px' }}
+      className="relative w-full h-[calc(100vh-10rem)] min-h-[500px] overflow-hidden"
+      style={{ perspective: '1800px' }}
       onTouchStart={handleTouchStart}
       onTouchMove={handleTouchMove}
       onTouchEnd={handleTouchEnd}
@@ -187,7 +187,7 @@ const ProjectCarousel = ({ projects }) => {
     >
       {/* Carousel container */}
       <div
-        className="absolute left-1/2 top-[42%] -translate-y-1/2"
+        className="absolute left-1/2 top-[38%] -translate-y-1/2"
         style={{
           transformStyle: 'preserve-3d',
           transition: isAnimating ? 'transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)' : 'none',

@@ -28,7 +28,9 @@ const ParticleBackground = () => {
       linkOpacity: 0.4,
       dotOpacity: 0.5,
       repulseDistance: 200,
-      repulseStrength: 300,
+      repulseStrength: 800,
+      particleRepulseDistance: 50,
+      particleRepulseStrength: 30,
     }
 
     // Utility functions
@@ -62,6 +64,7 @@ const ParticleBackground = () => {
         y,
         vx: Math.cos(angle) * baseSpeed,
         vy: Math.sin(angle) * baseSpeed,
+        baseSpeed, // Store the target cruising speed
         r: rand(settings.minSize, settings.maxSize),
         t: Math.random(),
       })
@@ -85,7 +88,9 @@ const ParticleBackground = () => {
       const mouse = mouseRef.current
 
       // Update particles
-      for (const p of particles) {
+      for (let i = 0; i < particles.length; i++) {
+        const p = particles[i]
+
         // Mouse repulsion
         const dx = p.x - mouse.x
         const dy = p.y - mouse.y
@@ -97,16 +102,51 @@ const ParticleBackground = () => {
           p.vy += (dy / dist) * force * dt
         }
 
+        // Particle-to-particle repulsion (prevents clumping)
+        for (let j = i + 1; j < particles.length; j++) {
+          const other = particles[j]
+          const pdx = p.x - other.x
+          const pdy = p.y - other.y
+          const pDist = Math.hypot(pdx, pdy) || 1
+
+          if (pDist < settings.particleRepulseDistance) {
+            const pForce = (1 - pDist / settings.particleRepulseDistance) * settings.particleRepulseStrength
+            const fx = (pdx / pDist) * pForce * dt
+            const fy = (pdy / pDist) * pForce * dt
+            // Push both particles apart
+            p.vx += fx
+            p.vy += fy
+            other.vx -= fx
+            other.vy -= fy
+          }
+        }
+
         // Move
         p.x += p.vx * dt
         p.y += p.vy * dt
 
-        // Soft damping (higher value = faster slowdown)
-        p.vx *= 0.985
-        p.vy *= 0.985
+        // Speed management - maintain base cruising speed
+        const currentSpeed = Math.hypot(p.vx, p.vy)
 
-        // Clamp velocity (lower max = calmer movement)
-        const maxV = 400
+        if (currentSpeed > p.baseSpeed * 1.1) {
+          // If faster than base speed (pushed by cursor), apply damping to slow down
+          const dampFactor = 0.97
+          p.vx *= dampFactor
+          p.vy *= dampFactor
+        } else if (currentSpeed < p.baseSpeed * 0.9 && currentSpeed > 0.1) {
+          // If slower than base speed, accelerate back up
+          const accelFactor = 1.02
+          p.vx *= accelFactor
+          p.vy *= accelFactor
+        } else if (currentSpeed < 0.1) {
+          // If nearly stopped, give it a new random direction at base speed
+          const newAngle = rand(0, Math.PI * 2)
+          p.vx = Math.cos(newAngle) * p.baseSpeed
+          p.vy = Math.sin(newAngle) * p.baseSpeed
+        }
+
+        // Clamp max velocity (for when pushed hard by cursor)
+        const maxV = 200
         p.vx = clamp(p.vx, -maxV, maxV)
         p.vy = clamp(p.vy, -maxV, maxV)
 

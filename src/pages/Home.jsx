@@ -7,12 +7,18 @@ const Home = () => {
   return (
     <div className="min-h-[calc(100vh-5rem)] flex items-center justify-center px-6">
       <div className="text-center">
-        {/* Main heading with typewriter effect */}
-        <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold mb-12 leading-tight">
+        {/* Main heading with typewriter effect - moves up when buttons appear */}
+        <h1
+          className={`
+            text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold leading-tight
+            transition-all duration-700 ease-out
+            ${typingComplete ? 'mb-8 -translate-y-4' : 'mb-12 translate-y-0'}
+          `}
+        >
           <TypewriterText
             text={"Hey,\nI'm Matthew."}
-            speed={120}
-            newlinePause={400}
+            speed={65}
+            newlinePause={300}
             delay={500}
             onComplete={() => setTypingComplete(true)}
             className="block"
@@ -23,7 +29,7 @@ const Home = () => {
         {/* Buttons that fade in after typing completes */}
         <FadeIn
           show={typingComplete}
-          delay={500}
+          delay={400}
           duration={600}
           direction="up"
           className="flex flex-wrap items-center justify-center gap-4"

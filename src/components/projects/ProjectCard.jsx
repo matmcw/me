@@ -51,7 +51,7 @@ const ProjectCard = ({
       ref={cardRef}
       className={`
         absolute
-        w-[320px] h-[480px]
+        w-[380px] h-[570px]
         cursor-pointer
         transition-all duration-500 ease-out
         ${className}
