@@ -11,7 +11,8 @@ const Home = () => {
         <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold mb-12 leading-tight">
           <TypewriterText
             text={"Hey,\nI'm Matthew."}
-            speed={70}
+            speed={120}
+            newlinePause={400}
             delay={500}
             onComplete={() => setTypingComplete(true)}
             className="block"
@@ -33,7 +34,7 @@ const Home = () => {
           <Button to="/projects" variant="primary">
             My Stuff
           </Button>
-          <Button to="/contact" variant="secondary">
+          <Button to="/contact" variant="primary">
             Contact
           </Button>
         </FadeIn>

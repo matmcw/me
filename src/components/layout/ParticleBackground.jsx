@@ -23,12 +23,12 @@ const ParticleBackground = () => {
       count: 80,
       minSize: 1,
       maxSize: 3,
-      speed: 120,
+      speed: 40,
       linkDistance: 150,
       linkOpacity: 0.4,
       dotOpacity: 0.5,
-      repulseDistance: 260,
-      repulseStrength: 850,
+      repulseDistance: 200,
+      repulseStrength: 300,
     }
 
     // Utility functions
@@ -101,12 +101,12 @@ const ParticleBackground = () => {
         p.x += p.vx * dt
         p.y += p.vy * dt
 
-        // Soft damping
-        p.vx *= 0.999
-        p.vy *= 0.999
+        // Soft damping (higher value = faster slowdown)
+        p.vx *= 0.985
+        p.vy *= 0.985
 
-        // Clamp velocity
-        const maxV = 2600
+        // Clamp velocity (lower max = calmer movement)
+        const maxV = 400
         p.vx = clamp(p.vx, -maxV, maxV)
         p.vy = clamp(p.vy, -maxV, maxV)
 

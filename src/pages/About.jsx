@@ -72,13 +72,14 @@ const About = () => {
       </FadeIn>
 
       {/* Interest Tiles Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+      <div className="flex flex-wrap justify-center gap-4">
         {interests.map((interest, index) => (
           <FadeIn
             key={interest.title}
             delay={300 + index * 75}
             duration={500}
             direction="up"
+            className="w-full sm:w-[calc(50%-0.5rem)] lg:w-[calc(33.333%-0.75rem)] xl:w-[calc(25%-0.75rem)]"
           >
             <InterestTile
               icon={interest.icon}

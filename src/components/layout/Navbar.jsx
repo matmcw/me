@@ -18,15 +18,15 @@ const Navbar = () => {
   return (
     <header className="fixed top-0 left-0 right-0 z-50">
       <nav className="glass">
-        <div className="max-w-7xl mx-auto px-6 py-4">
+        <div className="w-full px-8 md:px-12 lg:px-16 py-4">
           <div className="flex items-center justify-between">
             {/* Logo */}
             <Link
               to="/"
-              className="text-xl font-semibold tracking-tight hover:text-primary-blue transition-colors duration-300"
+              className="text-xl font-semibold tracking-tight hover:opacity-80 transition-all duration-300"
               onClick={closeMenu}
             >
-              <span className="text-gradient">Matthew McWilliams</span>
+              <span className="text-gradient font-bold drop-shadow-[0_0_10px_rgba(98,116,231,0.5)]">Matthew McWilliams</span>
             </Link>
 
             {/* Desktop Navigation */}

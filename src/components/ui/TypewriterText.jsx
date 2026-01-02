@@ -4,6 +4,7 @@ const TypewriterText = ({
   text,
   speed = 65,
   delay = 0,
+  newlinePause = 0,
   onComplete,
   className = '',
   cursorClassName = '',
@@ -32,12 +33,18 @@ const TypewriterText = ({
 
     const typeNextChar = () => {
       if (currentIndex < chars.length) {
+        const currentChar = chars[currentIndex]
         setDisplayedText(text.slice(0, currentIndex + 1))
         currentIndex++
 
         // Variable typing speed for more natural feel
-        const variance = Math.random() * 40 - 20 // -20 to +20ms variance
-        setTimeout(typeNextChar, speed + variance)
+        const variance = Math.random() * 30 - 15 // -15 to +15ms variance
+
+        // Add extra pause before newline (as if thinking before pressing enter)
+        const nextChar = chars[currentIndex]
+        const extraPause = nextChar === '\n' ? newlinePause : 0
+
+        setTimeout(typeNextChar, speed + variance + extraPause)
       } else {
         setIsTyping(false)
         setIsComplete(true)
@@ -46,7 +53,7 @@ const TypewriterText = ({
     }
 
     typeNextChar()
-  }, [isTyping, text, speed, onComplete])
+  }, [isTyping, text, speed, newlinePause, onComplete])
 
   // Cursor should NOT blink while typing, only after complete
   const cursorClasses = `

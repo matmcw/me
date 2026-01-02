@@ -133,7 +133,7 @@ const ProjectCarousel = ({ projects }) => {
     while (offsetAngle < -180) offsetAngle += 360
 
     // 3D positioning
-    const radius = 400 // Distance from center
+    const radius = 500 // Distance from center (increased for bigger cards)
     const angleRad = (offsetAngle * Math.PI) / 180
 
     // Calculate position
@@ -149,8 +149,8 @@ const ProjectCarousel = ({ projects }) => {
     const absAngle = Math.abs(offsetAngle)
     const opacity = absAngle > 90 ? 0 : 1 - (absAngle / 90) * 0.6
 
-    // Y rotation (cards face outward from center)
-    const rotateY = -offsetAngle * 0.8
+    // Y rotation (cards form a circle, facing outward from carousel center)
+    const rotateY = offsetAngle
 
     // Z-index based on depth
     const zIndex = Math.round((z + radius) * 10)
@@ -175,8 +175,8 @@ const ProjectCarousel = ({ projects }) => {
   return (
     <div
       ref={containerRef}
-      className="relative w-full h-[600px] overflow-hidden"
-      style={{ perspective: '1200px' }}
+      className="relative w-full h-[650px] overflow-hidden"
+      style={{ perspective: '1400px' }}
       onTouchStart={handleTouchStart}
       onTouchMove={handleTouchMove}
       onTouchEnd={handleTouchEnd}
@@ -187,7 +187,7 @@ const ProjectCarousel = ({ projects }) => {
     >
       {/* Carousel container */}
       <div
-        className="absolute left-1/2 top-1/2 -translate-y-1/2"
+        className="absolute left-1/2 top-[42%] -translate-y-1/2"
         style={{
           transformStyle: 'preserve-3d',
           transition: isAnimating ? 'transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)' : 'none',
