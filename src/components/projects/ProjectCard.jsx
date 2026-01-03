@@ -100,7 +100,7 @@ const ProjectCard = ({
           {/* Image Section - 1:1 Square */}
           <div className="relative w-full aspect-square bg-dark-200 overflow-hidden">
             <img
-              src={project.image}
+              src={import.meta.env.BASE_URL + project.image.slice(1)}
               alt={project.name}
               className="w-full h-full object-cover"
               onError={(e) => {
