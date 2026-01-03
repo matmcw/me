@@ -4,12 +4,12 @@ const interests = [
   {
     icon: '💻',
     title: 'Programming',
-    description: 'Building software and solving problems through code. From web apps to automation scripts.',
+    description: 'Building simple webpages, solving problems, and just having fun.',
   },
   {
     icon: '🎮',
     title: 'Gaming',
-    description: 'Exploring virtual worlds and enjoying competitive and story-driven games.',
+    description: 'Exploring virtual worlds, stories, and objectives. I play a bit of everything.',
   },
   {
     icon: '✈️',
@@ -17,24 +17,24 @@ const interests = [
     description: 'Discovering new places, cultures, and experiences around the world.',
   },
   {
-    icon: '🖨️',
+    icon: '📐',
     title: '3D Printing',
-    description: 'Bringing digital designs to life through additive manufacturing and prototyping.',
+    description: 'Creating physical objects from digital designs using FDM and resin printing.',
   },
   {
     icon: '🤖',
     title: 'AI',
-    description: 'Fascinated by machine learning, neural networks, and the future of artificial intelligence.',
+    description: 'Creating and experimenting with AI models, tools, and workflows.',
   },
   {
-    icon: '🎸',
-    title: 'Metal/Rock',
-    description: 'Heavy riffs and powerful vocals. Music that gets the adrenaline pumping.',
+    icon: '🎧',
+    title: 'Music',
+    description: 'Listening to many different genres, rock and metal the most.',
   },
   {
     icon: '🧩',
     title: "Rubik's Cubes",
-    description: 'Speed cubing and puzzle solving. The satisfying click of algorithms falling into place.',
+    description: 'I have around 30 cubes in my ever growing collection and I am always getting faster',
   },
 ]
 
@@ -51,15 +51,8 @@ const About = () => {
       {/* Bio Section */}
       <FadeIn delay={100} duration={500}>
         <div className="glass rounded-2xl p-8 mb-12">
-          <p className="text-lg text-white/80 leading-relaxed mb-4">
-            Hi, I'm Matthew McWilliams — a developer passionate about creating elegant
-            solutions to complex problems. I love working with modern technologies
-            and building things that make a difference.
-          </p>
           <p className="text-lg text-white/80 leading-relaxed">
-            When I'm not coding, you can find me exploring my various interests
-            listed below. I believe in continuous learning and always pushing
-            the boundaries of what's possible.
+            Hi, I'm Matthew McWilliams, a passionate student in the field of computer science. I love working with technology in many different forms to create, learn, and explore new ideas. I enjoy growing my skills and taking on new challenges. I can often be found exploring some of my various interests listed below.
           </p>
         </div>
       </FadeIn>

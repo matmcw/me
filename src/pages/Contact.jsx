@@ -123,7 +123,7 @@ const Contact = () => {
         {/* Footer text */}
         <FadeIn delay={200} duration={500}>
           <p className="text-center text-white/40 text-sm mt-8">
-            Feel free to reach out. I'm always open to discussing new projects and opportunities.
+            Feel free to reach out for any reason. Check out my full GitHub page!
           </p>
         </FadeIn>
       </div>

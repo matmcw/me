@@ -1,58 +1,72 @@
 [
   {
-    "id": "project-1",
-    "name": "Project Alpha",
-    "description": "A full-stack web application built with modern technologies. Features real-time updates and a responsive design.",
-    "image": "/images/projects/placeholder-1.svg",
-    "url": "https://github.com/matmcw"
+    "id": "factoring-quadratics",
+    "name": "Factoring of Quadratics",
+    "description": "A minimalist tool for factoring basic quadratic equations.",
+    "image": "/images/projects/factoring of quadratics.png",
+    "url": "https://matmcw.github.io/Factoring-of-Quadratics/"
   },
   {
-    "id": "project-2",
-    "name": "Project Beta",
-    "description": "An innovative tool for developers that streamlines workflows and automates repetitive tasks.",
-    "image": "/images/projects/placeholder-2.svg",
-    "url": "https://github.com/matmcw"
+    "id": "bezier-curve",
+    "name": "Bezier Curve Animation",
+    "description": "An interactive animation of a Bezier curve and its derivative.",
+    "image": "/images/projects/bezier curve animation.png",
+    "url": "https://matmcw.github.io/Bezier-Curve-Animation/"
   },
   {
-    "id": "project-3",
-    "name": "Project Gamma",
-    "description": "A mobile-first application designed to enhance productivity and organization for everyday users.",
-    "image": "/images/projects/placeholder-3.svg",
-    "url": "https://github.com/matmcw"
+    "id": "lantern-jump",
+    "name": "Lantern Jump",
+    "description": "A platformer game where you play as a lantern and jump across platforms in the dark.",
+    "image": "/images/projects/lantern jump.png",
+    "url": "https://matmcw.github.io/Lantern-Jump/"
   },
   {
-    "id": "project-4",
-    "name": "Project Delta",
-    "description": "An AI-powered solution that leverages machine learning to provide intelligent recommendations.",
-    "image": "/images/projects/placeholder-4.svg",
-    "url": "https://github.com/matmcw"
+    "id": "scroll-down",
+    "name": "Scroll Down",
+    "description": "One of my first projects. A simple page where you scroll down. Can you find the hidden win screen?",
+    "image": "/images/projects/scroll down.png",
+    "url": "https://matmcw.github.io/Scroll-Down/"
   },
   {
-    "id": "project-5",
-    "name": "Project Epsilon",
-    "description": "A creative platform for artists and designers to showcase their work and connect with clients.",
-    "image": "/images/projects/placeholder-5.svg",
-    "url": "https://github.com/matmcw"
+    "id": "affirmation-machine",
+    "name": "Affirmation Machine",
+    "description": "A slot machine that generates positive affirmations (sometimes).",
+    "image": "/images/projects/affirmation machine.png",
+    "url": "https://matmcw.github.io/Affirmation-Machine/"
   },
   {
-    "id": "project-6",
-    "name": "Project Zeta",
-    "description": "A data visualization dashboard that transforms complex datasets into actionable insights.",
-    "image": "/images/projects/placeholder-6.svg",
-    "url": "https://github.com/matmcw"
+    "id": "tic-tac-toe",
+    "name": "Unbeatable Tic-Tac-Toe",
+    "description": "An unbeatable Tic-Tac-Toe game where you play against a simple CPU player.",
+    "image": "/images/projects/unbeatable tic-tac-toe.png",
+    "url": "https://matmcw.github.io/Unbeatable-Tic-Tac-Toe/"
   },
   {
-    "id": "project-7",
-    "name": "Project Eta",
-    "description": "An open-source library that simplifies common development patterns and best practices.",
-    "image": "/images/projects/placeholder-7.svg",
-    "url": "https://github.com/matmcw"
+    "id": "brick-breaker",
+    "name": "Brick-Breaker",
+    "description": "An infinite, minimalist version of the classic breakout game.",
+    "image": "/images/projects/brick-breaker.png",
+    "url": "https://matmcw.github.io/Brick-Breaker/"
   },
   {
-    "id": "project-8",
-    "name": "Project Theta",
-    "description": "A game built from scratch featuring custom physics engine and procedural generation.",
-    "image": "/images/projects/placeholder-8.svg",
-    "url": "https://github.com/matmcw"
+    "id": "bubble-wrap",
+    "name": "Bubble-Wrap",
+    "description": "A simple infinite bubble wrap simulator.",
+    "image": "/images/projects/bubble-wrap.png",
+    "url": "https://matmcw.github.io/Bubble-Wrap/"
+  },
+  {
+    "id": "2048",
+    "name": "2048",
+    "description": "Classic 2048 game with a clean, simple gradient.",
+    "image": "/images/projects/2048.png",
+    "url": "https://matmcw.github.io/2048/"
+  },
+  {
+    "id": "cube-shooter",
+    "name": "Cube Shooter",
+    "description": "Experimental 3D game in which you move around, shoot cubes, and buy upgrades.",
+    "image": "/images/projects/cube shooter.png",
+    "url": "https://matmcw.github.io/Cube-Shooter/"
   }
 ]
