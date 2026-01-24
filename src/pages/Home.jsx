@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { TypewriterText, Button, FadeIn } from '../components/ui'
+import { TypewriterText, MagneticButton, FadeIn } from '../components/ui'
 
 const Home = () => {
 	const [typingComplete, setTypingComplete] = useState(false)
@@ -34,15 +34,15 @@ const Home = () => {
 					direction="up"
 					className="flex flex-wrap items-center justify-center gap-4"
 				>
-					<Button to="/about" variant="primary">
+					<MagneticButton to="/about">
 						About Me
-					</Button>
-					<Button to="/projects" variant="primary">
+					</MagneticButton>
+					<MagneticButton to="/projects">
 						My Stuff
-					</Button>
-					<Button to="/contact" variant="primary">
+					</MagneticButton>
+					<MagneticButton to="/contact">
 						Contact
-					</Button>
+					</MagneticButton>
 				</FadeIn>
 			</div>
 		</div>

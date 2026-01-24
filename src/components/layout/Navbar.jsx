@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 
 const navLinks = [
@@ -10,13 +10,25 @@ const navLinks = [
 
 const Navbar = () => {
 	const [isMenuOpen, setIsMenuOpen] = useState(false)
+	const [isVisible, setIsVisible] = useState(true)
 	const location = useLocation()
+
+	useEffect(() => {
+		const handleScroll = () => {
+			setIsVisible(window.scrollY < 50)
+		}
+
+		window.addEventListener('scroll', handleScroll)
+		handleScroll()
+
+		return () => window.removeEventListener('scroll', handleScroll)
+	}, [])
 
 	const toggleMenu = () => setIsMenuOpen(!isMenuOpen)
 	const closeMenu = () => setIsMenuOpen(false)
 
 	return (
-		<header className="fixed top-0 left-0 right-0 z-50 p-3">
+		<header className={`absolute top-0 left-0 right-0 z-50 p-3 transition-opacity duration-300 ${isVisible ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
 			<nav className="navbar-card">
 				<div className="w-full px-6 md:px-8 py-3">
 					<div className="flex items-center justify-between">

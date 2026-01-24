@@ -1,4 +1,5 @@
 export { default as Button } from './Button'
+export { default as MagneticButton } from './MagneticButton'
 export { default as TypewriterText } from './TypewriterText'
 export { default as InterestTile } from './InterestTile'
 export { default as FadeIn } from './FadeIn'

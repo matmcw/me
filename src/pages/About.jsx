@@ -43,7 +43,7 @@ const About = () => {
 		<div className="page-container">
 			{/* Page Title */}
 			<FadeIn delay={0} duration={500}>
-				<h1 className="page-title mb-8">About Me</h1>
+				<h1 className="page-title text-gradient mb-8">About Me</h1>
 			</FadeIn>
 
 			{/* Bio Section */}
