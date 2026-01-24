@@ -274,6 +274,34 @@
 		background: rgba(255, 255, 255, 0.1);
 	}
 
+	/* Interactive nav links with magnetism and shine */
+	.nav-link-interactive {
+		@apply px-4 py-2 font-medium inline-block;
+		border-radius: var(--radius-md);
+		color: var(--text-muted);
+		transition: color var(--transition-base);
+	}
+
+	.nav-link-interactive:hover {
+		color: var(--text-primary);
+	}
+
+	.nav-link-interactive-active {
+		color: var(--text-primary);
+	}
+
+	/* Mobile interactive nav links */
+	.nav-link-mobile-interactive {
+		@apply px-4 py-3 font-medium block w-full;
+		border-radius: var(--radius-md);
+		color: var(--text-muted);
+		transition: color var(--transition-base);
+	}
+
+	.nav-link-mobile-interactive:hover {
+		color: var(--text-primary);
+	}
+
 	/* ----------------------------------------
 	   Cards
 	   ---------------------------------------- */

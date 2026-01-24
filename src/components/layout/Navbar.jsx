@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
-import { Link, useLocation } from 'react-router-dom'
+import { Link } from 'react-router-dom'
+import { NavLink } from '../ui'
 
 const navLinks = [
 	{ path: '/', label: 'Home' },
@@ -11,7 +12,6 @@ const navLinks = [
 const Navbar = () => {
 	const [isMenuOpen, setIsMenuOpen] = useState(false)
 	const [isVisible, setIsVisible] = useState(true)
-	const location = useLocation()
 
 	useEffect(() => {
 		const handleScroll = () => {
@@ -40,13 +40,12 @@ const Navbar = () => {
 						{/* Desktop Navigation */}
 						<div className="hidden md:flex items-center gap-2">
 							{navLinks.map((link) => (
-								<Link
+								<NavLink
 									key={link.path}
 									to={link.path}
-									className={`nav-link ${location.pathname === link.path ? 'nav-link-active' : ''}`}
 								>
 									{link.label}
-								</Link>
+								</NavLink>
 							))}
 						</div>
 
@@ -68,14 +67,14 @@ const Navbar = () => {
 					<div className={`md:hidden overflow-hidden transition-all duration-300 ${isMenuOpen ? 'max-h-64 mt-4' : 'max-h-0'}`}>
 						<div className="flex flex-col gap-2 pb-2">
 							{navLinks.map((link) => (
-								<Link
+								<NavLink
 									key={link.path}
 									to={link.path}
 									onClick={closeMenu}
-									className={`nav-link-mobile ${location.pathname === link.path ? 'nav-link-active' : ''}`}
+									className="nav-link-mobile-interactive"
 								>
 									{link.label}
-								</Link>
+								</NavLink>
 							))}
 						</div>
 					</div>
