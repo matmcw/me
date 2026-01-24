@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-A personal portfolio website for **Matthew McWilliams** built with React and Vite. The site is fully static (no backend) for GitHub Pages hosting. Features a dark theme with purple/blue glassmorphism aesthetic, interactive particle background, and a polished 3D carousel showcase for projects.
+A personal portfolio website for **Matthew McWilliams** built with React and Vite. The site is fully static (no backend) for GitHub Pages hosting. Features a dark theme with blue-cyan gradient aesthetic, interactive aurora background with particles, and a polished 3D carousel showcase for projects.
 
 **Project Size**: Large - requires detailed planning, version control, and comprehensive documentation.
 
@@ -11,7 +11,8 @@ A personal portfolio website for **Matthew McWilliams** built with React and Vit
 ## Tech Stack
 
 - **Framework**: React 18+ with Vite
-- **Styling**: Tailwind CSS (or CSS Modules if better suited)
+- **Styling**: Tailwind CSS with centralized CSS custom properties
+- **Animation**: Motion (Framer Motion) for advanced animations
 - **Build Output**: Static files for GitHub Pages deployment
 - **No external backend** - all data is local/static
 
@@ -20,204 +21,90 @@ A personal portfolio website for **Matthew McWilliams** built with React and Vit
 ## Design System
 
 ### Color Palette
-Based on the particle effect reference, use these as the foundation:
-- **Primary Blue**: `#6274e7`
-- **Primary Purple**: `#8752a3`
-- **Background Dark**: `#0b0f1a`, `#070913`, `#05060f`
-- **Glass overlay**: `rgba(255, 255, 255, 0.06)` with blur
-- **Text**: White/light gray for contrast
+- **Primary Blue**: `#0061FF`
+- **Primary Cyan**: `#60EFFF`
+- **Gradient**: Linear gradient from blue to cyan
+- **Background**: Pure black (`#000000`) with aurora overlay
+- **Glass Effects**: `rgba(0, 0, 0, 0.7)` with blur for cards/navbar
+- **Text**: White with various opacity levels for hierarchy
 
 ### Typography
-- Use a modern, techy font (e.g., Inter, JetBrains Mono, or similar)
-- Clean, minimal, professional aesthetic
-- Monospace elements where appropriate for developer feel
+- **Primary Font**: Orbitron (futuristic, techy aesthetic)
+- **Fallback**: Inter, system-ui, sans-serif
+- **Letter Spacing**: 0.06em globally for readability
+- **Hero Text**: Orbitron bold for main headings
 
-### Background
-Apply this gradient on all pages:
-```css
-background: radial-gradient(1200px 800px at 20% 15%, rgba(98, 116, 231, 0.55), transparent 60%),
-            radial-gradient(1000px 700px at 80% 25%, rgba(135, 82, 163, 0.55), transparent 60%),
-            radial-gradient(900px 650px at 50% 85%, rgba(98, 116, 231, 0.35), transparent 60%),
-            linear-gradient(135deg, #0b0f1a 0%, #070913 40%, #05060f 100%);
-```
-
-With frosted glass overlay:
-```css
-background: rgba(255, 255, 255, 0.06);
-backdrop-filter: blur(18px) saturate(140%);
-```
+### CSS Architecture
+All design tokens are centralized in `src/styles/index.css` using CSS custom properties:
+- `--color-primary-blue`, `--color-primary-cyan`
+- `--gradient-primary`, `--gradient-primary-subtle`
+- `--text-primary`, `--text-secondary`, `--text-muted`
+- `--transition-fast`, `--transition-base`, `--transition-slow`
 
 ---
 
-## Particle Background System
+## Interactive Components
 
-Implement the interactive particle canvas on **every page**. Reference implementation from `bg-effect.html`:
+### MagneticButton
+Located in `src/components/ui/MagneticButton.jsx`
 
-### Particle Specifications
-- **Count**: ~80 particles
-- **Size range**: 1-3px radius
-- **Colors**: Interpolate between `#6274e7` and `#8752a3`
-- **Link distance**: 150px (draw lines between nearby particles)
-- **Link opacity**: 0.4, fading with distance
-- **Dot opacity**: 0.5
+Features:
+- **Magnetism**: Button subtly follows cursor (0.15 strength)
+- **Animated Border**: Conic gradient draws around button on hover (starts top-left at 287.5deg)
+- **Shine Effect**: Radial gradient follows cursor position
+- **Scale**: Slight size increase on hover (1.05x)
+- **Colors**: Blue-cyan gradient border, black background with gradient overlay
 
-### Mouse Interaction
-- **Repulse distance**: 260px
-- **Repulse strength**: 850
-- Particles push away from cursor smoothly
-- **Click**: Spawns 4 burst particles at click location
+### NavLink
+Located in `src/components/ui/NavLink.jsx`
 
-### Technical Requirements
-- Use HTML Canvas for performance
-- Handle window resize with device pixel ratio
-- Particles wrap around screen edges
-- Gentle color drift animation over time
-- Cap velocity to prevent explosion (`maxV = 2600`)
+Features:
+- **Magnetism**: Same as MagneticButton
+- **Shine Effect**: Radial gradient on hover
+- **Active State**: Gradient background only on current page
+
+### DecryptedText
+Located in `src/components/ui/DecryptedText.jsx`
+
+Features:
+- **Scramble Animation**: Characters randomly scramble before revealing
+- **Sequential Reveal**: Characters reveal one by one from start
+- **useOriginalCharsOnly**: Only uses letters from the original text
+- **animateOn="both"**: Animates on page load AND re-animates on hover
+- **onComplete callback**: Triggers when animation finishes
 
 ---
 
 ## Site Structure
 
-### Header/Navbar (All Pages)
-- **Left side**: "Matthew McWilliams" as styled text logo (links to home)
-- **Right side**: Navigation buttons
-- **Behavior**: Static (scrolls with page)
-- **Nav links**: Home, About, My Stuff, Contact
-- **Button style**: Styled buttons with simple hover effect (color change, subtle glow, or similar)
-- **Mobile**: Hamburger menu
-- **CRITICAL**: Content must NEVER overlap the header - ensure proper spacing/z-index
+### Header/Navbar
+- **Position**: Absolute (not fixed), hides when scrolled past 50px
+- **Style**: Floating card with rounded corners, glass effect
+- **Logo**: "Matthew McWilliams" with gradient text and magnetism effect
+- **Nav Links**: Interactive with magnetism and shine
+- **Mobile**: Hamburger menu with same interactive effects
 
-### Page 1: Welcome/Home
-**Route**: `/` or `/home`
+### Page 1: Home (`/`)
+- **Hero Text**: "Hey, I'm Matthew." with DecryptedText animation
+- **Buttons**: Fade in after text animation completes
+- **Button Style**: MagneticButton with full effects
+- **Text moves up** when buttons appear for visual flow
 
-**Content**:
-- Large centered text: "Hey,\nI'm Matthew."
-- Typewriter animation effect:
-  - Characters appear one at a time at typing speed (quick but deliberate, ~50-80ms per character)
-  - Cursor (blinking pipe `|`) appears AFTER text, NOT during typing
-  - Cursor only starts blinking after typing completes
-  - Mimics real computer terminal behavior
+### Page 2: About (`/about`)
+- **Header**: "About Me" with `page-title-short` gradient class
+- **Bio Card**: Glass effect card with personal description
+- **Interest Tiles**: 7 tiles (Programming, Gaming, Travel, 3D Printing, AI, Music, Rubik's Cubes)
+- **GitHub Button**: MagneticButton linking to GitHub profile
 
-**After Animation**:
-- Brief pause (~500ms)
-- Buttons fade in AND slide up from below
-- Buttons match navbar navigation (About, My Stuff, Contact)
+### Page 3: Projects (`/projects`)
+- **Header**: "My Stuff" with `page-title-short` gradient class
+- **3D Carousel**: 5 visible cards with perspective transforms
+- **Card Interactions**: Tilt on hover, click to navigate
+- **Scroll/Swipe**: Rotates carousel with snap behavior
 
-### Page 2: About Me
-**Route**: `/about`
-
-**Content**:
-1. **Bio Section**:
-   - Paragraph with placeholder text about Matthew
-   - Professional but approachable tone
-
-2. **Interest Tiles** (7 total):
-   - Programming
-   - Gaming
-   - Travel
-   - 3D Printing
-   - AI
-   - Metal/Rock (music)
-   - Rubik's Cubes
-
-   Each tile has:
-   - Relevant icon
-   - Title
-   - Brief description
-
-   **Layout**: Visually appealing grid or masonry - designer discretion
-
-3. **GitHub Link**:
-   - Display differently from interest tiles (special callout, icon button, or bio section placement)
-   - Links to: `https://github.com/matmcw`
-
-### Page 3: My Stuff (Projects) - MOST IMPORTANT PAGE
-**Route**: `/projects` or `/my-stuff`
-
-This is the **flagship page** - must be the most polished with smooth, clean animations.
-
-#### 3D Carousel Implementation
-
-**Visual Layout**:
-- 5 cards visible at once
-- Center card: Faces directly toward viewport (full visibility)
-- Inner side cards (2): Rotated away, partially visible
-- Edge cards (2): Nearly edge-on, appear as thin lines due to perspective
-
-**Card Design** (2:3 aspect ratio, taller if needed for description):
-- **Header section**: Project name (top)
-- **Image section**: 1:1 square, project preview image (DO NOT overlap text on image)
-- **Footer section**: Project description
-
-**Carousel Behavior**:
-- **Scroll**: Rotates carousel (scroll up = rotate left, scroll down = rotate right)
-- **Snap**: Snaps to each card position
-- **Infinite loop**: Seamlessly wraps from last to first project
-- **Touch/swipe**: Mobile-friendly swipe gestures
-
-**Card Hover Effect**:
-- 3D tilt based on cursor position
-- Hovering bottom-right lifts that corner slightly
-- Smooth, subtle perspective transform
-
-**Click Behavior**:
-- Clicking non-center card: Rotates that card to center (no navigation)
-- Clicking center card: Navigates to project URL
-- Project URL priority: Live demo link if exists, otherwise GitHub link
-
-#### Project Data Structure
-Store in `src/data/projects.json`:
-
-```json
-[
-  {
-    "id": "unique-id",
-    "name": "Project Name",
-    "description": "Brief description of the project",
-    "image": "/images/projects/project-name.png",
-    "url": "https://project-demo-url.com"
-  }
-]
-```
-
-**Image Requirements**:
-- Format: PNG or JPG (PNG preferred)
-- Aspect ratio: 1:1 (square)
-- Location: `public/images/projects/`
-
-**Placeholder Projects**: Include 8 dummy projects with placeholder images for initial setup.
-
-### Page 4: Contact
-**Route**: `/contact`
-
-**Content** (simple display, no form):
-- Email: `matmcw@proton.me`
-- GitHub: `https://github.com/matmcw`
-
-Style consistently with site aesthetic. Can use icons alongside text.
-
----
-
-## Responsive Design
-
-### Desktop
-- Full navigation bar with text buttons
-- 5-card carousel view
-- Standard tile grid for About page
-
-### Mobile
-- Hamburger menu for navigation
-- Carousel becomes swipe-friendly
-- Tiles stack appropriately
-- All interactions touch-optimized
-
----
-
-## Browser Tab / Metadata
-
-- **Title**: "Matthew McWilliams"
-- **Favicon**: Custom icon (create simple icon matching site aesthetic)
-- **No SEO requirements** - skip meta descriptions
+### Page 4: Contact (`/contact`)
+- **Header**: "Get In Touch" with gradient
+- **Contact Cards**: Email and GitHub with icons
 
 ---
 
@@ -226,22 +113,22 @@ Style consistently with site aesthetic. Can use icons alongside text.
 ```
 Portfolio/
 ├── public/
-│   ├── favicon.svg (or .ico)
-│   └── images/
-│       └── projects/
-│           ├── placeholder-1.png
-│           ├── placeholder-2.png
-│           └── ... (8 placeholder images)
+│   ├── favicon.svg
+│   └── images/projects/
 ├── src/
 │   ├── components/
 │   │   ├── layout/
-│   │   │   ├── Header.jsx
-│   │   │   ├── Navbar.jsx
-│   │   │   └── ParticleBackground.jsx
+│   │   │   ├── Navbar.jsx (with logo magnetism)
+│   │   │   └── ParticleBackground.jsx (aurora + particles)
 │   │   ├── ui/
 │   │   │   ├── Button.jsx
-│   │   │   ├── TypewriterText.jsx
-│   │   │   └── InterestTile.jsx
+│   │   │   ├── MagneticButton.jsx (main interactive button)
+│   │   │   ├── NavLink.jsx (navbar links with effects)
+│   │   │   ├── DecryptedText.jsx (scramble text animation)
+│   │   │   ├── TypewriterText.jsx (legacy, kept for reference)
+│   │   │   ├── InterestTile.jsx
+│   │   │   ├── FadeIn.jsx
+│   │   │   └── index.js (exports)
 │   │   └── projects/
 │   │       ├── ProjectCarousel.jsx
 │   │       └── ProjectCard.jsx
@@ -253,64 +140,38 @@ Portfolio/
 │   ├── data/
 │   │   └── projects.json
 │   ├── styles/
-│   │   └── (global styles, tailwind config, etc.)
+│   │   └── index.css (centralized design system)
 │   ├── App.jsx
 │   └── main.jsx
-├── index.html
 ├── package.json
 ├── vite.config.js
-├── tailwind.config.js (if using Tailwind)
+├── tailwind.config.js
 └── CLAUDE.md
 ```
 
 ---
 
-## Implementation Priority
+## Key CSS Classes
 
-1. **Setup**: Vite + React project, routing, base structure
-2. **Particle Background**: Port from `bg-effect.html` to React component
-3. **Layout**: Header, navigation, page wrapper with proper spacing
-4. **Home Page**: Typewriter animation with button reveal
-5. **Projects Page**: 3D carousel (most complex, most important)
-6. **About Page**: Bio section, interest tiles, GitHub link
-7. **Contact Page**: Simple contact info display
-8. **Mobile Responsiveness**: Hamburger menu, touch interactions
-9. **Polish**: Animations, transitions, final styling touches
+### Typography
+- `.page-title` - Full gradient (0-100%)
+- `.page-title-short` - Compressed gradient (0-60%) for shorter text
+- `.text-gradient` - Apply gradient to any text
+- `.font-hero` - Orbitron font for hero sections
 
----
+### Layout
+- `.page-container` - Standard page padding and max-width
+- `.page-centered` - Flexbox centered content
+- `.card` - Glass effect card with dark background
+- `.navbar-card` - Navbar-specific glass styling
 
-## Animation Guidelines
-
-- All animations should be smooth (use CSS transitions or Framer Motion)
-- Avoid jarring or abrupt movements
-- Carousel should feel fluid and responsive
-- Typewriter effect should feel natural, like actual typing
-- Button hover effects should be subtle but noticeable
-
----
-
-## GitHub Pages Deployment
-
-Ensure Vite is configured for static output:
-
-```js
-// vite.config.js
-export default defineConfig({
-  base: '/', // or '/repo-name/' if not using custom domain
-  build: {
-    outDir: 'dist'
-  }
-})
-```
-
-Build command: `npm run build`
-Output: `dist/` folder contains static files for deployment
+### Interactive
+- `.nav-link-interactive` - Desktop nav links
+- `.nav-link-mobile-interactive` - Mobile nav links
 
 ---
 
 ## Adding New Projects
-
-To add a new project:
 
 1. Add square image (1:1, PNG/JPG) to `public/images/projects/`
 2. Edit `src/data/projects.json`:
@@ -327,16 +188,10 @@ To add a new project:
 
 ---
 
-## Reference Files
+## Development Notes
 
-- `bg-effect.html` - Original particle effect implementation (port to React)
-
----
-
-## Notes
-
-- This is a large project requiring version control (git commits for meaningful changes)
-- Prioritize the Projects page carousel - it's the centerpiece
-- Keep code clean and maintainable
-- Test all animations for smoothness
-- Ensure header never overlaps with content
+- Run `npm run dev` for development server
+- Run `npm run build` for production build
+- Site deploys to GitHub Pages via GitHub Actions
+- All interactive effects use requestAnimationFrame for smooth performance
+- Motion package provides animation primitives
