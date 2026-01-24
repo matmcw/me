@@ -8,7 +8,7 @@ const Projects = () => {
       {/* Header - positioned at top with spacing */}
       <div className="absolute top-12 left-0 right-0 z-10 text-center">
         <FadeIn delay={0} duration={500}>
-          <h1 className="text-3xl md:text-4xl font-bold mb-1 text-gradient">
+          <h1 className="page-title-short mb-1">
             My Stuff
           </h1>
         </FadeIn>

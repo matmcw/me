@@ -73,7 +73,8 @@
 	}
 
 	body {
-		font-family: 'Inter', system-ui, sans-serif;
+		font-family: 'Orbitron', 'Inter', system-ui, sans-serif;
+		letter-spacing: 0.06em;
 		color: var(--text-primary);
 		background: #000000;
 		min-height: 100vh;
@@ -139,6 +140,14 @@
 	.page-title {
 		@apply text-4xl md:text-5xl font-bold;
 		background: var(--gradient-primary);
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+		background-clip: text;
+	}
+
+	.page-title-short {
+		@apply text-4xl md:text-5xl font-bold;
+		background: linear-gradient(90deg, var(--color-primary-blue) 0%, var(--color-primary-cyan) 60%);
 		-webkit-background-clip: text;
 		-webkit-text-fill-color: transparent;
 		background-clip: text;
