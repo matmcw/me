@@ -108,6 +108,18 @@
 	}
 
 	/* ----------------------------------------
+	   Navbar Card
+	   ---------------------------------------- */
+	.navbar-card {
+		background: rgba(0, 0, 0, 0.75);
+		backdrop-filter: blur(20px) saturate(150%);
+		-webkit-backdrop-filter: blur(20px) saturate(150%);
+		border: 1px solid rgba(255, 255, 255, 0.1);
+		border-radius: var(--radius-xl);
+		box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+	}
+
+	/* ----------------------------------------
 	   Typography
 	   ---------------------------------------- */
 	.font-hero {
@@ -441,7 +453,7 @@
 
 	.page-centered {
 		@apply flex items-center justify-center;
-		min-height: calc(100vh - 5rem);
+		min-height: calc(100vh - 6rem);
 		padding-left: var(--space-page-x);
 		padding-right: var(--space-page-x);
 	}

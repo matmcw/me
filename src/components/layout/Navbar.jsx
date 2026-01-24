@@ -16,9 +16,9 @@ const Navbar = () => {
 	const closeMenu = () => setIsMenuOpen(false)
 
 	return (
-		<header className="fixed top-0 left-0 right-0 z-50">
-			<nav className="glass">
-				<div className="w-full px-8 md:px-12 lg:px-16 py-4">
+		<header className="fixed top-0 left-0 right-0 z-50 p-3">
+			<nav className="navbar-card">
+				<div className="w-full px-6 md:px-8 py-3">
 					<div className="flex items-center justify-between">
 						{/* Logo */}
 						<Link to="/" className="logo" onClick={closeMenu}>
@@ -54,7 +54,7 @@ const Navbar = () => {
 
 					{/* Mobile Menu */}
 					<div className={`md:hidden overflow-hidden transition-all duration-300 ${isMenuOpen ? 'max-h-64 mt-4' : 'max-h-0'}`}>
-						<div className="flex flex-col gap-2 pb-4">
+						<div className="flex flex-col gap-2 pb-2">
 							{navLinks.map((link) => (
 								<Link
 									key={link.path}

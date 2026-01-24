@@ -11,7 +11,7 @@ const Layout = ({ children }) => {
       <Navbar />
 
       {/* Main Content - Add top padding to account for fixed header */}
-      <main className="relative z-10 pt-20 min-h-screen">
+      <main className="relative z-10 pt-24 min-h-screen">
         {children}
       </main>
     </div>

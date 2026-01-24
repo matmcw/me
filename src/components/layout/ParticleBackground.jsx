@@ -46,12 +46,10 @@ const ParticleBackground = () => {
 			return `rgb(${r},${g},${b})`
 		}
 
-		const navbarHeight = 80 // 5rem = 80px
-
 		const resize = () => {
 			const dpr = Math.max(1, window.devicePixelRatio || 1)
 			W = window.innerWidth
-			H = window.innerHeight - navbarHeight
+			H = window.innerHeight
 			canvas.width = Math.floor(W * dpr)
 			canvas.height = Math.floor(H * dpr)
 			canvas.style.width = W + 'px'
@@ -229,13 +227,13 @@ const ParticleBackground = () => {
 	}, [])
 
 	return (
-		<div className="fixed left-0 right-0 bottom-0 z-0 pointer-events-none overflow-hidden" style={{ top: '5rem' }}>
+		<div className="fixed inset-0 z-0 pointer-events-none overflow-hidden">
 			{/* Aurora background - behind everything */}
 			<Aurora
 				colorStops={['#0061FF', '#60EFFF', '#0061FF']}
-				amplitude={0.4}
-				blend={0.8}
-				speed={0.3}
+				amplitude={0.5}
+				blend={0.6}
+				speed={1.5}
 			/>
 			{/* Particles canvas - on top of Aurora */}
 			<canvas
