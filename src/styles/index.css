@@ -72,6 +72,16 @@
 		overflow-x: hidden;
 	}
 
+	/* Hide scrollbar but allow scrolling */
+	* {
+		scrollbar-width: none; /* Firefox */
+		-ms-overflow-style: none; /* IE/Edge */
+	}
+
+	*::-webkit-scrollbar {
+		display: none; /* Chrome, Safari, Opera */
+	}
+
 	body {
 		font-family: 'Orbitron', 'Inter', system-ui, sans-serif;
 		letter-spacing: 0.06em;
