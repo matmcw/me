@@ -26,13 +26,13 @@ const Home = () => {
 					/>
 				</h1>
 
-				{/* Buttons that fade in after typing completes */}
+				{/* Buttons that fade in when typing completes */}
 				<FadeIn
 					show={typingComplete}
-					delay={400}
+					delay={0}
 					duration={600}
 					direction="up"
-					className="flex flex-wrap items-center justify-center gap-4"
+					className="flex flex-wrap items-center justify-center gap-8 -mt-2"
 				>
 					<MagneticButton to="/about">
 						About Me

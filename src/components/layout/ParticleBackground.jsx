@@ -22,12 +22,12 @@ const ParticleBackground = () => {
 		// Settings
 		const settings = {
 			count: 80,
-			minSize: 1,
-			maxSize: 3,
+			minSize: 1.5,
+			maxSize: 4,
 			speed: 40,
 			linkDistance: 150,
-			linkOpacity: 0.4,
-			dotOpacity: 0.5,
+			linkOpacity: 0.55,
+			dotOpacity: 0.7,
 			repulseDistance: 200,
 			repulseStrength: 800,
 			particleRepulseDistance: 50,

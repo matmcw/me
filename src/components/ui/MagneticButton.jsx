@@ -141,7 +141,7 @@ const MagneticButton = ({
 
 	const commonProps = {
 		ref: buttonRef,
-		className: `magnetic-btn relative inline-flex items-center justify-center font-medium text-sm px-6 py-3 rounded-xl cursor-pointer overflow-hidden ${className}`,
+		className: `magnetic-btn relative inline-flex items-center justify-center font-medium text-base px-8 py-4 rounded-xl cursor-pointer overflow-hidden ${className}`,
 		style: buttonStyle,
 		onMouseMove: handleMouseMove,
 		onMouseEnter: handleMouseEnter,
