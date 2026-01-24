@@ -10,7 +10,7 @@ const Home = () => {
 				{/* Main heading with typewriter effect - moves up when buttons appear */}
 				<h1
 					className={`
-						text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold leading-tight
+						font-hero text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold
 						transition-all duration-700 ease-out
 						${typingComplete ? 'mb-8 -translate-y-4' : 'mb-12 translate-y-0'}
 					`}

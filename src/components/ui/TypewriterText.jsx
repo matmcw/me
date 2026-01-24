@@ -66,12 +66,11 @@ const TypewriterText = ({
   return (
     <span className={className}>
       {displayedText.split('\n').map((line, index, array) => (
-        <span key={index}>
+        <span key={index} className="block" style={{ marginBottom: index < array.length - 1 ? '0.25em' : 0 }}>
           {line}
-          {index < array.length - 1 && <br />}
+          {index === array.length - 1 && showCursor && <span className={cursorClasses} />}
         </span>
       ))}
-      {showCursor && <span className={cursorClasses} />}
     </span>
   )
 }

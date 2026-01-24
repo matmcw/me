@@ -75,12 +75,7 @@
 	body {
 		font-family: 'Inter', system-ui, sans-serif;
 		color: var(--text-primary);
-		background:
-			radial-gradient(1200px 800px at 20% 15%, rgba(98, 116, 231, 0.55), transparent 60%),
-			radial-gradient(1000px 700px at 80% 25%, rgba(135, 82, 163, 0.55), transparent 60%),
-			radial-gradient(900px 650px at 50% 85%, rgba(98, 116, 231, 0.35), transparent 60%),
-			linear-gradient(135deg, var(--color-dark-100) 0%, var(--color-dark-200) 40%, var(--color-dark-300) 100%);
-		background-attachment: fixed;
+		background: #000000;
 		min-height: 100vh;
 	}
 
@@ -115,6 +110,11 @@
 	/* ----------------------------------------
 	   Typography
 	   ---------------------------------------- */
+	.font-hero {
+		font-family: 'Orbitron', sans-serif;
+		line-height: 1.2;
+	}
+
 	.text-gradient {
 		background: var(--gradient-primary);
 		-webkit-background-clip: text;

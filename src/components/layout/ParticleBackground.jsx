@@ -1,254 +1,250 @@
 import { useEffect, useRef } from 'react'
+import Aurora from './Aurora'
 
 const ParticleBackground = () => {
-  const canvasRef = useRef(null)
-  const mouseRef = useRef({ x: 0, y: 0 })
-  const particlesRef = useRef([])
-  const animationRef = useRef(null)
+	const canvasRef = useRef(null)
+	const mouseRef = useRef({ x: 0, y: 0 })
+	const particlesRef = useRef([])
+	const animationRef = useRef(null)
 
-  useEffect(() => {
-    const canvas = canvasRef.current
-    if (!canvas) return
+	useEffect(() => {
+		const canvas = canvasRef.current
+		if (!canvas) return
 
-    const ctx = canvas.getContext('2d')
-    let W = window.innerWidth
-    let H = window.innerHeight
+		const ctx = canvas.getContext('2d')
+		let W = window.innerWidth
+		let H = window.innerHeight
 
-    // Color palette endpoints
-    const colorA = { r: 0x62, g: 0x74, b: 0xe7 } // #6274e7
-    const colorB = { r: 0x87, g: 0x52, b: 0xa3 } // #8752a3
+		// Color palette endpoints
+		const colorA = { r: 0x62, g: 0x74, b: 0xe7 } // #6274e7
+		const colorB = { r: 0x87, g: 0x52, b: 0xa3 } // #8752a3
 
-    // Settings
-    const settings = {
-      count: 80,
-      minSize: 1,
-      maxSize: 3,
-      speed: 40,
-      linkDistance: 150,
-      linkOpacity: 0.4,
-      dotOpacity: 0.5,
-      repulseDistance: 200,
-      repulseStrength: 800,
-      particleRepulseDistance: 50,
-      particleRepulseStrength: 30,
-    }
+		// Settings
+		const settings = {
+			count: 80,
+			minSize: 1,
+			maxSize: 3,
+			speed: 40,
+			linkDistance: 150,
+			linkOpacity: 0.4,
+			dotOpacity: 0.5,
+			repulseDistance: 200,
+			repulseStrength: 800,
+			particleRepulseDistance: 50,
+			particleRepulseStrength: 30,
+		}
 
-    // Utility functions
-    const lerp = (a, b, t) => a + (b - a) * t
-    const clamp = (v, min, max) => Math.max(min, Math.min(max, v))
-    const rand = (min, max) => min + Math.random() * (max - min)
+		// Utility functions
+		const lerp = (a, b, t) => a + (b - a) * t
+		const clamp = (v, min, max) => Math.max(min, Math.min(max, v))
+		const rand = (min, max) => min + Math.random() * (max - min)
 
-    const colorBetween = (t) => {
-      const r = Math.round(lerp(colorA.r, colorB.r, t))
-      const g = Math.round(lerp(colorA.g, colorB.g, t))
-      const b = Math.round(lerp(colorA.b, colorB.b, t))
-      return `rgb(${r},${g},${b})`
-    }
+		const colorBetween = (t) => {
+			const r = Math.round(lerp(colorA.r, colorB.r, t))
+			const g = Math.round(lerp(colorA.g, colorB.g, t))
+			const b = Math.round(lerp(colorA.b, colorB.b, t))
+			return `rgb(${r},${g},${b})`
+		}
 
-    const resize = () => {
-      const dpr = Math.max(1, window.devicePixelRatio || 1)
-      W = window.innerWidth
-      H = window.innerHeight
-      canvas.width = Math.floor(W * dpr)
-      canvas.height = Math.floor(H * dpr)
-      canvas.style.width = W + 'px'
-      canvas.style.height = H + 'px'
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0)
-    }
+		const navbarHeight = 80 // 5rem = 80px
 
-    const spawnParticle = (x = rand(0, W), y = rand(0, H), burst = false) => {
-      const angle = rand(0, Math.PI * 2)
-      const baseSpeed = settings.speed * (burst ? rand(0.6, 1.2) : rand(0.3, 1))
-      particlesRef.current.push({
-        x,
-        y,
-        vx: Math.cos(angle) * baseSpeed,
-        vy: Math.sin(angle) * baseSpeed,
-        baseSpeed, // Store the target cruising speed
-        r: rand(settings.minSize, settings.maxSize),
-        t: Math.random(),
-      })
-    }
+		const resize = () => {
+			const dpr = Math.max(1, window.devicePixelRatio || 1)
+			W = window.innerWidth
+			H = window.innerHeight - navbarHeight
+			canvas.width = Math.floor(W * dpr)
+			canvas.height = Math.floor(H * dpr)
+			canvas.style.width = W + 'px'
+			canvas.style.height = H + 'px'
+			ctx.setTransform(dpr, 0, 0, dpr, 0, 0)
+		}
 
-    // Initialize particles
-    particlesRef.current = []
-    for (let i = 0; i < settings.count; i++) {
-      spawnParticle()
-    }
+		const spawnParticle = (x = rand(0, W), y = rand(0, H), burst = false) => {
+			const angle = rand(0, Math.PI * 2)
+			const baseSpeed = settings.speed * (burst ? rand(0.6, 1.2) : rand(0.3, 1))
+			particlesRef.current.push({
+				x,
+				y,
+				vx: Math.cos(angle) * baseSpeed,
+				vy: Math.sin(angle) * baseSpeed,
+				baseSpeed,
+				r: rand(settings.minSize, settings.maxSize),
+				t: Math.random(),
+			})
+		}
 
-    let last = performance.now()
+		// Initialize particles
+		particlesRef.current = []
+		for (let i = 0; i < settings.count; i++) {
+			spawnParticle()
+		}
 
-    const step = (now) => {
-      const dt = Math.min(0.05, (now - last) / 1000)
-      last = now
+		let last = performance.now()
 
-      ctx.clearRect(0, 0, W, H)
+		const step = (now) => {
+			const dt = Math.min(0.05, (now - last) / 1000)
+			last = now
 
-      const particles = particlesRef.current
-      const mouse = mouseRef.current
+			ctx.clearRect(0, 0, W, H)
 
-      // Update particles
-      for (let i = 0; i < particles.length; i++) {
-        const p = particles[i]
+			const particles = particlesRef.current
+			const mouse = mouseRef.current
 
-        // Mouse repulsion
-        const dx = p.x - mouse.x
-        const dy = p.y - mouse.y
-        const dist = Math.hypot(dx, dy) || 1
+			// Update particles
+			for (let i = 0; i < particles.length; i++) {
+				const p = particles[i]
 
-        if (dist < settings.repulseDistance) {
-          const force = (1 - dist / settings.repulseDistance) * settings.repulseStrength
-          p.vx += (dx / dist) * force * dt
-          p.vy += (dy / dist) * force * dt
-        }
+				// Mouse repulsion
+				const dx = p.x - mouse.x
+				const dy = p.y - mouse.y
+				const dist = Math.hypot(dx, dy) || 1
 
-        // Particle-to-particle repulsion (prevents clumping)
-        for (let j = i + 1; j < particles.length; j++) {
-          const other = particles[j]
-          const pdx = p.x - other.x
-          const pdy = p.y - other.y
-          const pDist = Math.hypot(pdx, pdy) || 1
+				if (dist < settings.repulseDistance) {
+					const force = (1 - dist / settings.repulseDistance) * settings.repulseStrength
+					p.vx += (dx / dist) * force * dt
+					p.vy += (dy / dist) * force * dt
+				}
 
-          if (pDist < settings.particleRepulseDistance) {
-            const pForce = (1 - pDist / settings.particleRepulseDistance) * settings.particleRepulseStrength
-            const fx = (pdx / pDist) * pForce * dt
-            const fy = (pdy / pDist) * pForce * dt
-            // Push both particles apart
-            p.vx += fx
-            p.vy += fy
-            other.vx -= fx
-            other.vy -= fy
-          }
-        }
+				// Particle-to-particle repulsion (prevents clumping)
+				for (let j = i + 1; j < particles.length; j++) {
+					const other = particles[j]
+					const pdx = p.x - other.x
+					const pdy = p.y - other.y
+					const pDist = Math.hypot(pdx, pdy) || 1
 
-        // Move
-        p.x += p.vx * dt
-        p.y += p.vy * dt
+					if (pDist < settings.particleRepulseDistance) {
+						const pForce = (1 - pDist / settings.particleRepulseDistance) * settings.particleRepulseStrength
+						const fx = (pdx / pDist) * pForce * dt
+						const fy = (pdy / pDist) * pForce * dt
+						p.vx += fx
+						p.vy += fy
+						other.vx -= fx
+						other.vy -= fy
+					}
+				}
 
-        // Speed management - maintain base cruising speed
-        const currentSpeed = Math.hypot(p.vx, p.vy)
+				// Move
+				p.x += p.vx * dt
+				p.y += p.vy * dt
 
-        if (currentSpeed > p.baseSpeed * 1.1) {
-          // If faster than base speed (pushed by cursor), apply damping to slow down
-          const dampFactor = 0.97
-          p.vx *= dampFactor
-          p.vy *= dampFactor
-        } else if (currentSpeed < p.baseSpeed * 0.9 && currentSpeed > 0.1) {
-          // If slower than base speed, accelerate back up
-          const accelFactor = 1.02
-          p.vx *= accelFactor
-          p.vy *= accelFactor
-        } else if (currentSpeed < 0.1) {
-          // If nearly stopped, give it a new random direction at base speed
-          const newAngle = rand(0, Math.PI * 2)
-          p.vx = Math.cos(newAngle) * p.baseSpeed
-          p.vy = Math.sin(newAngle) * p.baseSpeed
-        }
+				// Speed management
+				const currentSpeed = Math.hypot(p.vx, p.vy)
 
-        // Clamp max velocity (for when pushed hard by cursor)
-        const maxV = 200
-        p.vx = clamp(p.vx, -maxV, maxV)
-        p.vy = clamp(p.vy, -maxV, maxV)
+				if (currentSpeed > p.baseSpeed * 1.1) {
+					const dampFactor = 0.97
+					p.vx *= dampFactor
+					p.vy *= dampFactor
+				} else if (currentSpeed < p.baseSpeed * 0.9 && currentSpeed > 0.1) {
+					const accelFactor = 1.02
+					p.vx *= accelFactor
+					p.vy *= accelFactor
+				} else if (currentSpeed < 0.1) {
+					const newAngle = rand(0, Math.PI * 2)
+					p.vx = Math.cos(newAngle) * p.baseSpeed
+					p.vy = Math.sin(newAngle) * p.baseSpeed
+				}
 
-        // Wrap around edges
-        if (p.x < -10) p.x = W + 10
-        if (p.x > W + 10) p.x = -10
-        if (p.y < -10) p.y = H + 10
-        if (p.y > H + 10) p.y = -10
+				// Clamp max velocity
+				const maxV = 200
+				p.vx = clamp(p.vx, -maxV, maxV)
+				p.vy = clamp(p.vy, -maxV, maxV)
 
-        // Color drift
-        p.t += Math.sin(now / 1000 + p.x * 0.001 + p.y * 0.001) * 0.002
-        p.t = clamp(p.t, 0, 1)
-      }
+				// Wrap around edges
+				if (p.x < -10) p.x = W + 10
+				if (p.x > W + 10) p.x = -10
+				if (p.y < -10) p.y = H + 10
+				if (p.y > H + 10) p.y = -10
 
-      // Draw links
-      for (let i = 0; i < particles.length; i++) {
-        const a = particles[i]
-        for (let j = i + 1; j < particles.length; j++) {
-          const b = particles[j]
-          const dx = a.x - b.x
-          const dy = a.y - b.y
-          const d = Math.hypot(dx, dy)
+				// Color drift
+				p.t += Math.sin(now / 1000 + p.x * 0.001 + p.y * 0.001) * 0.002
+				p.t = clamp(p.t, 0, 1)
+			}
 
-          if (d <= settings.linkDistance) {
-            const alpha = settings.linkOpacity * (1 - d / settings.linkDistance)
-            ctx.globalAlpha = alpha
-            ctx.strokeStyle = 'rgba(255,255,255,0.9)'
-            ctx.lineWidth = 1
-            ctx.beginPath()
-            ctx.moveTo(a.x, a.y)
-            ctx.lineTo(b.x, b.y)
-            ctx.stroke()
-          }
-        }
-      }
+			// Draw links
+			for (let i = 0; i < particles.length; i++) {
+				const a = particles[i]
+				for (let j = i + 1; j < particles.length; j++) {
+					const b = particles[j]
+					const dx = a.x - b.x
+					const dy = a.y - b.y
+					const d = Math.hypot(dx, dy)
 
-      // Draw particles
-      for (const p of particles) {
-        ctx.globalAlpha = settings.dotOpacity
-        ctx.fillStyle = colorBetween(p.t)
-        ctx.beginPath()
-        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2)
-        ctx.fill()
-      }
+					if (d <= settings.linkDistance) {
+						const alpha = settings.linkOpacity * (1 - d / settings.linkDistance)
+						ctx.globalAlpha = alpha
+						ctx.strokeStyle = 'rgba(255,255,255,0.9)'
+						ctx.lineWidth = 1
+						ctx.beginPath()
+						ctx.moveTo(a.x, a.y)
+						ctx.lineTo(b.x, b.y)
+						ctx.stroke()
+					}
+				}
+			}
 
-      ctx.globalAlpha = 1
-      animationRef.current = requestAnimationFrame(step)
-    }
+			// Draw particles
+			for (const p of particles) {
+				ctx.globalAlpha = settings.dotOpacity
+				ctx.fillStyle = colorBetween(p.t)
+				ctx.beginPath()
+				ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2)
+				ctx.fill()
+			}
 
-    // Event handlers
-    const handleMouseMove = (e) => {
-      mouseRef.current = { x: e.clientX, y: e.clientY }
-    }
+			ctx.globalAlpha = 1
+			animationRef.current = requestAnimationFrame(step)
+		}
 
-    const handleClick = (e) => {
-      for (let i = 0; i < 4; i++) {
-        spawnParticle(e.clientX, e.clientY, true)
-      }
-    }
+		// Event handlers
+		const handleMouseMove = (e) => {
+			mouseRef.current = { x: e.clientX, y: e.clientY }
+		}
 
-    const handleResize = () => {
-      resize()
-    }
+		const handleClick = (e) => {
+			for (let i = 0; i < 4; i++) {
+				spawnParticle(e.clientX, e.clientY, true)
+			}
+		}
 
-    // Set up
-    resize()
-    window.addEventListener('resize', handleResize)
-    window.addEventListener('mousemove', handleMouseMove)
-    window.addEventListener('click', handleClick)
-    animationRef.current = requestAnimationFrame(step)
+		const handleResize = () => {
+			resize()
+		}
 
-    // Cleanup
-    return () => {
-      window.removeEventListener('resize', handleResize)
-      window.removeEventListener('mousemove', handleMouseMove)
-      window.removeEventListener('click', handleClick)
-      if (animationRef.current) {
-        cancelAnimationFrame(animationRef.current)
-      }
-    }
-  }, [])
+		// Set up
+		resize()
+		window.addEventListener('resize', handleResize)
+		window.addEventListener('mousemove', handleMouseMove)
+		window.addEventListener('click', handleClick)
+		animationRef.current = requestAnimationFrame(step)
 
-  return (
-    <>
-      {/* Glass overlay */}
-      <div
-        className="fixed inset-0 pointer-events-none z-0"
-        style={{
-          background: 'rgba(255, 255, 255, 0.06)',
-          backdropFilter: 'blur(18px) saturate(140%)',
-          WebkitBackdropFilter: 'blur(18px) saturate(140%)',
-          boxShadow: 'inset 0 0 0 1px rgba(255, 255, 255, 0.08)',
-        }}
-      />
-      {/* Canvas */}
-      <canvas
-        ref={canvasRef}
-        className="fixed inset-0 z-[1] pointer-events-none"
-        style={{ display: 'block' }}
-      />
-    </>
-  )
+		// Cleanup
+		return () => {
+			window.removeEventListener('resize', handleResize)
+			window.removeEventListener('mousemove', handleMouseMove)
+			window.removeEventListener('click', handleClick)
+			if (animationRef.current) {
+				cancelAnimationFrame(animationRef.current)
+			}
+		}
+	}, [])
+
+	return (
+		<div className="fixed left-0 right-0 bottom-0 z-0 pointer-events-none overflow-hidden" style={{ top: '5rem' }}>
+			{/* Aurora background - behind everything */}
+			<Aurora
+				colorStops={['#6274e7', '#8752a3', '#6274e7']}
+				amplitude={0.4}
+				blend={0.8}
+				speed={0.3}
+			/>
+			{/* Particles canvas - on top of Aurora */}
+			<canvas
+				ref={canvasRef}
+				className="absolute inset-0 pointer-events-auto"
+				style={{ display: 'block' }}
+			/>
+		</div>
+	)
 }
 
 export default ParticleBackground
