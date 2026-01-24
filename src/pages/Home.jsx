@@ -1,34 +1,36 @@
 import { useState } from 'react'
-import { TypewriterText, MagneticButton, FadeIn } from '../components/ui'
+import { DecryptedText, MagneticButton, FadeIn } from '../components/ui'
 
 const Home = () => {
-	const [typingComplete, setTypingComplete] = useState(false)
+	const [animationComplete, setAnimationComplete] = useState(false)
 
 	return (
 		<div className="page-centered">
 			<div className="text-center">
-				{/* Main heading with typewriter effect - moves up when buttons appear */}
+				{/* Main heading with decrypted text effect - moves up when buttons appear */}
 				<h1
 					className={`
 						font-hero text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold
 						transition-all duration-700 ease-out
-						${typingComplete ? 'mb-8 -translate-y-4' : 'mb-12 translate-y-0'}
+						${animationComplete ? 'mb-8 -translate-y-4' : 'mb-12 translate-y-0'}
 					`}
 				>
-					<TypewriterText
+					<DecryptedText
 						text={"Hey,\nI'm Matthew."}
-						speed={65}
-						newlinePause={300}
-						delay={500}
-						onComplete={() => setTypingComplete(true)}
-						className="block"
-						cursorClassName="h-[0.9em]"
+						speed={60}
+						maxIterations={15}
+						sequential={true}
+						revealDirection="start"
+						animateOn="view"
+						onComplete={() => setAnimationComplete(true)}
+						className="text-white"
+						encryptedClassName="text-white/50"
 					/>
 				</h1>
 
-				{/* Buttons that fade in when typing completes */}
+				{/* Buttons that fade in when animation completes */}
 				<FadeIn
-					show={typingComplete}
+					show={animationComplete}
 					delay={0}
 					duration={600}
 					direction="up"
