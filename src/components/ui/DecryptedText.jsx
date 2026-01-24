@@ -172,11 +172,26 @@ const DecryptedText = ({
 		}
 	}, [animateOn, hasAnimated])
 
+	const handleHoverStart = () => {
+		setRevealedIndices(new Set())
+		setIsAnimating(true)
+	}
+
+	const handleHoverEnd = () => {
+		setIsAnimating(false)
+		setDisplayText(text)
+		setRevealedIndices(new Set())
+		// If animation completed before, ensure onComplete fires on hover end
+		if (hasAnimated && onComplete) {
+			onComplete()
+		}
+	}
+
 	const hoverProps =
 		animateOn === 'hover' || animateOn === 'both'
 			? {
-					onMouseEnter: () => setIsAnimating(true),
-					onMouseLeave: () => setIsAnimating(false),
+					onMouseEnter: handleHoverStart,
+					onMouseLeave: handleHoverEnd,
 				}
 			: {}
 

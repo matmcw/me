@@ -18,10 +18,11 @@ const Home = () => {
 					<DecryptedText
 						text={"Hey,\nI'm Matthew."}
 						speed={60}
-						maxIterations={15}
+						maxIterations={20}
 						sequential={true}
 						revealDirection="start"
-						animateOn="view"
+						useOriginalCharsOnly={true}
+						animateOn="both"
 						onComplete={() => setAnimationComplete(true)}
 						className="text-white"
 						encryptedClassName="text-white/50"

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { NavLink } from '../ui'
 
@@ -12,6 +12,9 @@ const navLinks = [
 const Navbar = () => {
 	const [isMenuOpen, setIsMenuOpen] = useState(false)
 	const [isVisible, setIsVisible] = useState(true)
+	const [logoPosition, setLogoPosition] = useState({ x: 0, y: 0 })
+	const [isLogoHovered, setIsLogoHovered] = useState(false)
+	const logoRef = useRef(null)
 
 	useEffect(() => {
 		const handleScroll = () => {
@@ -27,13 +30,43 @@ const Navbar = () => {
 	const toggleMenu = () => setIsMenuOpen(!isMenuOpen)
 	const closeMenu = () => setIsMenuOpen(false)
 
+	const handleLogoMouseMove = (e) => {
+		if (!logoRef.current) return
+		const rect = logoRef.current.getBoundingClientRect()
+		const centerX = rect.left + rect.width / 2
+		const centerY = rect.top + rect.height / 2
+		const magnetStrength = 0.15
+		setLogoPosition({
+			x: (e.clientX - centerX) * magnetStrength,
+			y: (e.clientY - centerY) * magnetStrength,
+		})
+	}
+
+	const handleLogoMouseEnter = () => setIsLogoHovered(true)
+	const handleLogoMouseLeave = () => {
+		setIsLogoHovered(false)
+		setLogoPosition({ x: 0, y: 0 })
+	}
+
 	return (
 		<header className={`absolute top-0 left-0 right-0 z-50 p-3 transition-opacity duration-300 ${isVisible ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
 			<nav className="navbar-card">
 				<div className="w-full px-6 md:px-8 py-3">
 					<div className="flex items-center justify-between">
 						{/* Logo */}
-						<Link to="/" className="logo" onClick={closeMenu}>
+						<Link
+							ref={logoRef}
+							to="/"
+							className="logo"
+							onClick={closeMenu}
+							onMouseMove={handleLogoMouseMove}
+							onMouseEnter={handleLogoMouseEnter}
+							onMouseLeave={handleLogoMouseLeave}
+							style={{
+								transform: `translate(${logoPosition.x}px, ${logoPosition.y}px)`,
+								transition: isLogoHovered ? 'transform 0.1s ease-out' : 'transform 0.3s ease-out',
+							}}
+						>
 							<span className="logo-text">Matthew McWilliams</span>
 						</Link>
 
