@@ -6,14 +6,14 @@
    CSS CUSTOM PROPERTIES (Design Tokens)
    ============================================ */
 :root {
-	/* Primary Colors */
-	--color-primary-blue: #6274e7;
-	--color-primary-purple: #8752a3;
+	/* Primary Colors - Blue to Cyan gradient */
+	--color-primary-blue: #0061FF;
+	--color-primary-cyan: #60EFFF;
 
 	/* Background Colors */
-	--color-dark-100: #0b0f1a;
-	--color-dark-200: #070913;
-	--color-dark-300: #05060f;
+	--color-dark-100: #0a0a0a;
+	--color-dark-200: #050505;
+	--color-dark-300: #000000;
 
 	/* Glass Effect Colors */
 	--glass-bg: rgba(255, 255, 255, 0.06);
@@ -29,15 +29,15 @@
 	--text-faint: rgba(255, 255, 255, 0.40);
 
 	/* Gradients */
-	--gradient-primary: linear-gradient(135deg, var(--color-primary-blue) 0%, var(--color-primary-purple) 100%);
-	--gradient-primary-subtle: linear-gradient(135deg, rgba(98, 116, 231, 0.3) 0%, rgba(135, 82, 163, 0.3) 100%);
-	--gradient-primary-hover: linear-gradient(135deg, rgba(98, 116, 231, 0.5) 0%, rgba(135, 82, 163, 0.5) 100%);
-	--gradient-primary-muted: linear-gradient(135deg, rgba(98, 116, 231, 0.2) 0%, rgba(135, 82, 163, 0.2) 100%);
+	--gradient-primary: linear-gradient(90deg, var(--color-primary-blue) 0%, var(--color-primary-cyan) 100%);
+	--gradient-primary-subtle: linear-gradient(90deg, rgba(0, 97, 255, 0.3) 0%, rgba(96, 239, 255, 0.3) 100%);
+	--gradient-primary-hover: linear-gradient(90deg, rgba(0, 97, 255, 0.5) 0%, rgba(96, 239, 255, 0.5) 100%);
+	--gradient-primary-muted: linear-gradient(90deg, rgba(0, 97, 255, 0.2) 0%, rgba(96, 239, 255, 0.2) 100%);
 
 	/* Shadows */
-	--shadow-glow: 0 8px 30px rgba(98, 116, 231, 0.3);
-	--shadow-glow-sm: 0 4px 20px rgba(98, 116, 231, 0.2);
-	--shadow-glow-lg: 0 12px 40px rgba(98, 116, 231, 0.35);
+	--shadow-glow: 0 8px 30px rgba(0, 97, 255, 0.3);
+	--shadow-glow-sm: 0 4px 20px rgba(0, 97, 255, 0.2);
+	--shadow-glow-lg: 0 12px 40px rgba(0, 97, 255, 0.35);
 
 	/* Transitions */
 	--transition-fast: 200ms ease-out;
@@ -80,7 +80,7 @@
 	}
 
 	::selection {
-		background: rgba(98, 116, 231, 0.4);
+		background: rgba(0, 97, 255, 0.4);
 		color: white;
 	}
 }
@@ -182,7 +182,7 @@
 	}
 
 	.btn-primary:focus {
-		@apply ring-primary-blue/50;
+		@apply ring-blue-500/50;
 	}
 
 	.btn-secondary {
@@ -269,7 +269,7 @@
 
 	.card-interactive:hover {
 		transform: scale(1.02) translateY(-4px);
-		box-shadow: 0 10px 40px rgba(98, 116, 231, 0.1);
+		box-shadow: 0 10px 40px rgba(0, 97, 255, 0.1);
 	}
 
 	/* Contact/Link Cards */
@@ -290,7 +290,7 @@
 	   ---------------------------------------- */
 	.icon-box {
 		@apply w-12 h-12 rounded-lg flex items-center justify-center;
-		background: linear-gradient(to bottom right, rgba(98, 116, 231, 0.3), rgba(135, 82, 163, 0.3));
+		background: linear-gradient(90deg, rgba(0, 97, 255, 0.3), rgba(96, 239, 255, 0.3));
 		transition: transform var(--transition-base);
 	}
 
@@ -309,7 +309,7 @@
 
 	.interest-tile:hover {
 		transform: scale(1.02) translateY(-4px);
-		box-shadow: 0 10px 40px rgba(98, 116, 231, 0.1);
+		box-shadow: 0 10px 40px rgba(0, 97, 255, 0.1);
 	}
 
 	.interest-tile-icon {
@@ -353,7 +353,7 @@
 
 	.project-card-image-overlay {
 		@apply absolute inset-0;
-		background: linear-gradient(to bottom right, rgba(98, 116, 231, 0.2), rgba(135, 82, 163, 0.2));
+		background: linear-gradient(90deg, rgba(0, 97, 255, 0.2), rgba(96, 239, 255, 0.2));
 		z-index: -1;
 	}
 
@@ -368,15 +368,15 @@
 
 	.project-card-back {
 		@apply w-full h-full backdrop-blur-sm rounded-2xl;
-		background: linear-gradient(to bottom right, rgba(98, 116, 231, 0.3), rgba(135, 82, 163, 0.2), rgba(98, 116, 231, 0.3));
+		background: linear-gradient(90deg, rgba(0, 97, 255, 0.3), rgba(96, 239, 255, 0.2), rgba(0, 97, 255, 0.3));
 		border: 1px solid rgba(255, 255, 255, 0.1);
 	}
 
 	.project-card-back-pattern {
 		@apply w-full h-full opacity-30;
 		background-image:
-			radial-gradient(circle at 30% 30%, rgba(98, 116, 231, 0.3) 0%, transparent 50%),
-			radial-gradient(circle at 70% 70%, rgba(135, 82, 163, 0.3) 0%, transparent 50%);
+			radial-gradient(circle at 30% 30%, rgba(0, 97, 255, 0.3) 0%, transparent 50%),
+			radial-gradient(circle at 70% 70%, rgba(96, 239, 255, 0.3) 0%, transparent 50%);
 	}
 
 	/* Hover border for project cards */
@@ -387,7 +387,7 @@
 	}
 
 	.project-card-hover-border.active {
-		border-color: rgba(98, 116, 231, 0.5);
+		border-color: rgba(0, 97, 255, 0.5);
 	}
 
 	/* ----------------------------------------
@@ -464,7 +464,7 @@
 		-webkit-background-clip: text;
 		-webkit-text-fill-color: transparent;
 		background-clip: text;
-		filter: drop-shadow(0 0 10px rgba(98, 116, 231, 0.5));
+		filter: drop-shadow(0 0 10px rgba(0, 97, 255, 0.5));
 	}
 
 	/* ----------------------------------------

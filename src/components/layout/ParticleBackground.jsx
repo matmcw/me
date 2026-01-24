@@ -15,9 +15,9 @@ const ParticleBackground = () => {
 		let W = window.innerWidth
 		let H = window.innerHeight
 
-		// Color palette endpoints
-		const colorA = { r: 0x62, g: 0x74, b: 0xe7 } // #6274e7
-		const colorB = { r: 0x87, g: 0x52, b: 0xa3 } // #8752a3
+		// Color palette endpoints - Blue to Cyan
+		const colorA = { r: 0x00, g: 0x61, b: 0xFF } // #0061FF
+		const colorB = { r: 0x60, g: 0xEF, b: 0xFF } // #60EFFF
 
 		// Settings
 		const settings = {
@@ -232,7 +232,7 @@ const ParticleBackground = () => {
 		<div className="fixed left-0 right-0 bottom-0 z-0 pointer-events-none overflow-hidden" style={{ top: '5rem' }}>
 			{/* Aurora background - behind everything */}
 			<Aurora
-				colorStops={['#6274e7', '#8752a3', '#6274e7']}
+				colorStops={['#0061FF', '#60EFFF', '#0061FF']}
 				amplitude={0.4}
 				blend={0.8}
 				speed={0.3}

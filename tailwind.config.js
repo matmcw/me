@@ -8,13 +8,13 @@ export default {
     extend: {
       colors: {
         primary: {
-          blue: '#6274e7',
-          purple: '#8752a3',
+          blue: '#0061FF',
+          cyan: '#60EFFF',
         },
         dark: {
-          100: '#0b0f1a',
-          200: '#070913',
-          300: '#05060f',
+          100: '#0a0a0a',
+          200: '#050505',
+          300: '#000000',
         },
         glass: {
           white: 'rgba(255, 255, 255, 0.06)',
