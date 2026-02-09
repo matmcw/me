@@ -364,13 +364,7 @@
 	   Interest Tiles
 	   ---------------------------------------- */
 	.interest-tile {
-		@apply glass rounded-xl p-6;
-		transition: all var(--transition-base);
-	}
-
-	.interest-tile:hover {
-		transform: scale(1.02) translateY(-4px);
-		box-shadow: 0 10px 40px rgba(0, 97, 255, 0.1);
+		@apply glass rounded-xl p-6 h-full;
 	}
 
 	.interest-tile-icon {
