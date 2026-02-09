@@ -63,7 +63,10 @@ const ProjectCard = ({
 			{/* Card container with 3D flip */}
 			<div
 				className="relative w-full h-full preserve-3d"
-				style={{ transform: tiltTransform }}
+				style={{
+					transform: tiltTransform,
+					transition: isHovering ? 'transform 0.1s ease-out' : 'transform 0.3s ease-out',
+				}}
 			>
 				{/* Front face */}
 				<div
