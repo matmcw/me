@@ -7,6 +7,8 @@ const ProjectCard = ({
 	style,
 	rotationAngle = 0,
 	className = '',
+	cardWidth = 336,
+	cardHeight = 480,
 }) => {
 	const cardRef = useRef(null)
 	const [tilt, setTilt] = useState({ x: 0, y: 0 })
@@ -50,8 +52,10 @@ const ProjectCard = ({
 	return (
 		<div
 			ref={cardRef}
-			className={`absolute w-[336px] h-[480px] cursor-pointer transition-[transform,opacity] duration-500 ease-out ${className}`}
+			className={`absolute cursor-pointer transition-[transform,opacity] duration-500 ease-out ${className}`}
 			style={{
+				width: `${cardWidth}px`,
+				height: `${cardHeight}px`,
 				...style,
 				transformStyle: 'preserve-3d',
 			}}
