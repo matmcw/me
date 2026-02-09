@@ -35,7 +35,7 @@ const MagneticButton = ({
 		const centerY = rect.top + rect.height / 2
 
 		// Magnetism - subtle pull toward cursor
-		const magnetStrength = 0.15
+		const magnetStrength = 0.08
 		const deltaX = (e.clientX - centerX) * magnetStrength
 		const deltaY = (e.clientY - centerY) * magnetStrength
 
