@@ -11,9 +11,9 @@ const Contact = () => {
 
 				{/* Contact Card */}
 				<FadeIn delay={100} duration={500}>
-					<div className="flex flex-col items-center gap-4">
-						<MagneticButton href="mailto:matmcw@proton.me">
-							<span className="flex items-center gap-3">
+					<div className="card p-8 flex flex-col items-center gap-4">
+						<MagneticButton href="mailto:matmcw@proton.me" className="w-full">
+							<span className="flex items-center justify-center gap-3 w-full">
 								<svg
 									className="w-5 h-5"
 									fill="none"
@@ -43,8 +43,8 @@ const Contact = () => {
 								</svg>
 							</span>
 						</MagneticButton>
-						<MagneticButton href="https://github.com/matmcw">
-							<span className="flex items-center gap-3">
+						<MagneticButton href="https://github.com/matmcw" className="w-full">
+							<span className="flex items-center justify-center gap-3 w-full">
 								<svg
 									className="w-5 h-5"
 									fill="currentColor"
