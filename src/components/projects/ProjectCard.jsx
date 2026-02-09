@@ -67,10 +67,14 @@ const ProjectCard = ({
 			>
 				{/* Front face */}
 				<div
-					className="absolute inset-0 project-card flex flex-col backface-hidden transition-opacity duration-200"
+					className="absolute inset-0 project-card flex flex-col backface-hidden transition-opacity duration-200 overflow-hidden"
 					style={{
 						opacity: isShowingBack ? 0 : 1,
 						pointerEvents: isShowingBack ? 'none' : 'auto',
+						boxShadow: enableHover && isHovering && !isShowingBack
+							? '0 4px 30px rgba(0, 97, 255, 0.35), 0 0 15px rgba(96, 239, 255, 0.15)'
+							: 'none',
+						transition: 'opacity 0.2s, box-shadow 0.2s ease-out',
 					}}
 				>
 					{/* Header */}

@@ -1,38 +1,39 @@
 import { InterestTile, FadeIn, MagneticButton } from '../components/ui'
+import { CodeXml, Gamepad2, Plane, Printer, BrainCircuit, Headphones, Puzzle } from 'lucide-react'
 
 const interests = [
 	{
-		icon: '💻',
+		icon: <CodeXml size={36} />,
 		title: 'Programming',
 		description: 'Building simple webpages, solving problems, and just having fun.',
 	},
 	{
-		icon: '🎮',
+		icon: <Gamepad2 size={36} />,
 		title: 'Gaming',
 		description: 'Exploring virtual worlds, stories, and objectives. I play a bit of everything.',
 	},
 	{
-		icon: '✈️',
+		icon: <Plane size={36} />,
 		title: 'Travel',
 		description: 'Discovering new places, cultures, and experiences around the world.',
 	},
 	{
-		icon: '📐',
+		icon: <Printer size={36} />,
 		title: '3D Printing',
 		description: 'Creating physical objects from digital designs using FDM and resin printing.',
 	},
 	{
-		icon: '🤖',
+		icon: <BrainCircuit size={36} />,
 		title: 'AI',
 		description: 'Creating and experimenting with AI models, tools, and workflows.',
 	},
 	{
-		icon: '🎧',
+		icon: <Headphones size={36} />,
 		title: 'Music',
-		description: 'Listening to many different genres, rock and metal the most.',
+		description: 'Listening to many different genres, Mostly rock and some metal.',
 	},
 	{
-		icon: '🧩',
+		icon: <Puzzle size={36} />,
 		title: "Rubik's Cubes",
 		description: 'I have around 30 cubes in my ever growing collection and I am always getting faster',
 	},
@@ -61,13 +62,14 @@ const About = () => {
 			</FadeIn>
 
 			{/* Interest Tiles Grid */}
-			<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+			<div className="flex flex-wrap justify-center gap-4">
 				{interests.map((interest, index) => (
 					<FadeIn
 						key={interest.title}
 						delay={300 + index * 75}
 						duration={500}
 						direction="up"
+						className="w-full sm:w-[calc(50%-0.5rem)] lg:w-[calc(33.333%-0.75rem)] xl:w-[calc(25%-0.75rem)]"
 					>
 						<InterestTile
 							icon={interest.icon}

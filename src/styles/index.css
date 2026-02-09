@@ -368,12 +368,8 @@
 	}
 
 	.interest-tile-icon {
-		@apply text-4xl mb-4;
-		transition: transform var(--transition-base);
-	}
-
-	.interest-tile:hover .interest-tile-icon {
-		transform: scale(1.1);
+		@apply mb-4;
+		color: var(--text-secondary);
 	}
 
 	.interest-tile-title {
@@ -389,7 +385,11 @@
 	   Project Cards
 	   ---------------------------------------- */
 	.project-card {
-		@apply glass rounded-2xl overflow-hidden;
+		@apply rounded-2xl overflow-hidden;
+		background: rgba(0, 0, 0, 0.7);
+		backdrop-filter: blur(20px) saturate(150%);
+		-webkit-backdrop-filter: blur(20px) saturate(150%);
+		border: 1px solid rgba(255, 255, 255, 0.1);
 	}
 
 	.project-card-header {

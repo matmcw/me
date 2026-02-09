@@ -107,7 +107,7 @@ const DecryptedText = ({
 						} else {
 							clearInterval(interval)
 							setIsScrambling(false)
-							if (onComplete) onComplete()
+							if (onComplete) setTimeout(onComplete, 0)
 							return prevRevealed
 						}
 					} else {
@@ -117,7 +117,7 @@ const DecryptedText = ({
 							clearInterval(interval)
 							setIsScrambling(false)
 							setDisplayText(text)
-							if (onComplete) onComplete()
+							if (onComplete) setTimeout(onComplete, 0)
 						}
 						return prevRevealed
 					}
