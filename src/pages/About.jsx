@@ -1,3 +1,4 @@
+import { useRef, useState } from 'react'
 import { InterestTile, FadeIn, MagneticButton } from '../components/ui'
 import { CodeXml, Gamepad2, Plane, Printer, BrainCircuit, Headphones, Puzzle } from 'lucide-react'
 
@@ -40,6 +41,35 @@ const interests = [
 ]
 
 const About = () => {
+	const bioRef = useRef(null)
+	const [bioPosition, setBioPosition] = useState({ x: 0, y: 0 })
+	const [bioRotation, setBioRotation] = useState({ x: 0, y: 0 })
+	const [isBioHovered, setIsBioHovered] = useState(false)
+
+	const handleBioMouseMove = (e) => {
+		if (!bioRef.current) return
+		const rect = bioRef.current.getBoundingClientRect()
+		const centerX = rect.left + rect.width / 2
+		const centerY = rect.top + rect.height / 2
+
+		const magnetStrength = 0.05
+		setBioPosition({
+			x: (e.clientX - centerX) * magnetStrength,
+			y: (e.clientY - centerY) * magnetStrength,
+		})
+
+		const maxTilt = 4
+		const tiltX = -((e.clientY - centerY) / (rect.height / 2)) * maxTilt
+		const tiltY = ((e.clientX - centerX) / (rect.width / 2)) * maxTilt
+		setBioRotation({ x: tiltX, y: tiltY })
+	}
+
+	const handleBioMouseLeave = () => {
+		setIsBioHovered(false)
+		setBioPosition({ x: 0, y: 0 })
+		setBioRotation({ x: 0, y: 0 })
+	}
+
 	return (
 		<div className="page-container">
 			{/* Page Title */}
@@ -49,7 +79,18 @@ const About = () => {
 
 			{/* Bio Section */}
 			<FadeIn delay={100} duration={500}>
-				<div className="card p-8 mb-12">
+				<div
+					ref={bioRef}
+					className="card p-8 mb-12"
+					style={{
+						transform: `perspective(600px) translate(${bioPosition.x}px, ${bioPosition.y}px) rotateX(${bioRotation.x}deg) rotateY(${bioRotation.y}deg)`,
+						transition: isBioHovered ? 'transform 0.1s ease-out, box-shadow 0.2s ease-out' : 'transform 0.3s ease-out, box-shadow 0.3s ease-out',
+						boxShadow: isBioHovered ? '0 4px 30px rgba(0, 97, 255, 0.35), 0 0 15px rgba(96, 239, 255, 0.15)' : 'none',
+					}}
+					onMouseMove={handleBioMouseMove}
+					onMouseEnter={() => setIsBioHovered(true)}
+					onMouseLeave={handleBioMouseLeave}
+				>
 					<p className="body-text">
 						Hi, I'm Matthew McWilliams, a passionate student in the field of computer science. I love working with technology in many different forms to create, learn, and explore new ideas. I enjoy growing my skills and taking on new challenges. I can often be found exploring some of my various interests listed below.
 					</p>

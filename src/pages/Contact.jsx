@@ -3,7 +3,7 @@ import { FadeIn, MagneticButton } from '../components/ui'
 const Contact = () => {
 	return (
 		<div className="page-centered">
-			<div className="max-w-lg w-full">
+			<div className="max-w-xl w-full">
 				{/* Title */}
 				<FadeIn delay={0} duration={500}>
 					<h1 className="page-title mb-8 text-center">Get In Touch</h1>
