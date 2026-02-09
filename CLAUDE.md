@@ -71,7 +71,26 @@ Features:
 - **Sequential Reveal**: Characters reveal one by one from start
 - **useOriginalCharsOnly**: Only uses letters from the original text
 - **animateOn="both"**: Animates on page load AND re-animates on hover
-- **onComplete callback**: Triggers when animation finishes
+- **onComplete callback**: Triggers when animation finishes (deferred via `setTimeout` to avoid React render-cycle warnings)
+
+### InterestTile
+Located in `src/components/ui/InterestTile.jsx`
+
+Features:
+- **Magnetism**: Tile follows cursor on hover
+- **3D Tilt**: Perspective tilt based on cursor position
+- **Glow**: Border glow effect on hover
+- No shine overlay (removed for cleaner visuals)
+
+### ProjectCard
+Located in `src/components/projects/ProjectCard.jsx`
+
+Features:
+- **Magnetism**: Card follows cursor on hover
+- **3D Tilt**: Perspective tilt based on cursor position
+- **Glow**: Border glow effect on hover
+- **Click to Navigate**: Opens project URL
+- No shine overlay (removed for cleaner visuals)
 
 ---
 

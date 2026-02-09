@@ -1,4 +1,4 @@
-import { FadeIn } from '../components/ui'
+import { FadeIn, MagneticButton } from '../components/ui'
 
 const Contact = () => {
 	return (
@@ -11,13 +11,11 @@ const Contact = () => {
 
 				{/* Contact Card */}
 				<FadeIn delay={100} duration={500}>
-					<div className="card p-8 space-y-6">
-						{/* Email */}
-						<a href="mailto:matmcw@proton.me" className="link-card group">
-							{/* Email Icon */}
-							<div className="icon-box">
+					<div className="flex flex-col items-center gap-4">
+						<MagneticButton href="mailto:matmcw@proton.me">
+							<span className="flex items-center gap-3">
 								<svg
-									className="w-6 h-6 text-white"
+									className="w-5 h-5"
 									fill="none"
 									stroke="currentColor"
 									viewBox="0 0 24 24"
@@ -29,38 +27,26 @@ const Contact = () => {
 										d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
 									/>
 								</svg>
-							</div>
-							<div>
-								<div className="text-sm text-subtle mb-1">Email</div>
-								<div className="text-white font-medium">matmcw@proton.me</div>
-							</div>
-							{/* Arrow */}
-							<svg
-								className="w-5 h-5 text-faint ml-auto group-hover-arrow"
-								fill="none"
-								stroke="currentColor"
-								viewBox="0 0 24 24"
-							>
-								<path
-									strokeLinecap="round"
-									strokeLinejoin="round"
-									strokeWidth={2}
-									d="M17 8l4 4m0 0l-4 4m4-4H3"
-								/>
-							</svg>
-						</a>
-
-						{/* GitHub */}
-						<a
-							href="https://github.com/matmcw"
-							target="_blank"
-							rel="noopener noreferrer"
-							className="link-card group"
-						>
-							{/* GitHub Icon */}
-							<div className="icon-box">
+								matmcw@proton.me
 								<svg
-									className="w-6 h-6 text-white"
+									className="w-5 h-5"
+									fill="none"
+									stroke="currentColor"
+									viewBox="0 0 24 24"
+								>
+									<path
+										strokeLinecap="round"
+										strokeLinejoin="round"
+										strokeWidth={2}
+										d="M17 8l4 4m0 0l-4 4m4-4H3"
+									/>
+								</svg>
+							</span>
+						</MagneticButton>
+						<MagneticButton href="https://github.com/matmcw">
+							<span className="flex items-center gap-3">
+								<svg
+									className="w-5 h-5"
 									fill="currentColor"
 									viewBox="0 0 24 24"
 								>
@@ -70,26 +56,22 @@ const Contact = () => {
 										clipRule="evenodd"
 									/>
 								</svg>
-							</div>
-							<div>
-								<div className="text-sm text-subtle mb-1">GitHub</div>
-								<div className="text-white font-medium">github.com/matmcw</div>
-							</div>
-							{/* Arrow */}
-							<svg
-								className="w-5 h-5 text-faint ml-auto group-hover-arrow"
-								fill="none"
-								stroke="currentColor"
-								viewBox="0 0 24 24"
-							>
-								<path
-									strokeLinecap="round"
-									strokeLinejoin="round"
-									strokeWidth={2}
-									d="M17 8l4 4m0 0l-4 4m4-4H3"
-								/>
-							</svg>
-						</a>
+								Check out my GitHub
+								<svg
+									className="w-5 h-5"
+									fill="none"
+									stroke="currentColor"
+									viewBox="0 0 24 24"
+								>
+									<path
+										strokeLinecap="round"
+										strokeLinejoin="round"
+										strokeWidth={2}
+										d="M17 8l4 4m0 0l-4 4m4-4H3"
+									/>
+								</svg>
+							</span>
+						</MagneticButton>
 					</div>
 				</FadeIn>
 

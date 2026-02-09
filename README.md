@@ -4,10 +4,11 @@ A personal portfolio website built with React, Vite, and Tailwind CSS featuring 
 
 ## Features
 
-- **Interactive Particle Background** - Canvas-based particle system with mouse repulsion physics, connected particle lines, and click-to-spawn effects
-- **Typewriter Animation** - Animated text reveal on the home page hero section
-- **3D Project Carousel** - Horizontal snap-scroll gallery with tilt hover effects for showcasing projects
-- **Glassmorphism Theme** - Dark theme with purple/blue gradient accents and frosted glass UI elements
+- **Interactive Aurora Background** - Canvas-based particle system with aurora overlay, mouse repulsion physics, connected particle lines, and click-to-spawn effects
+- **DecryptedText Animation** - Scramble-reveal text animation on the home page hero section with hover re-animation
+- **3D Project Carousel** - Horizontal snap-scroll gallery with magnetism, 3D tilt, and glow hover effects for showcasing projects
+- **MagneticButton / NavLink** - Interactive buttons and nav links with cursor magnetism, animated border, and shine effects
+- **Glassmorphism Theme** - Dark theme with blue-cyan gradient accents (Orbitron font) and frosted glass UI elements
 - **Mobile Responsive** - Fully responsive layout with hamburger navigation menu for smaller screens
 - **Smooth Page Transitions** - Fade-in animations and scroll-based effects throughout
 
@@ -15,7 +16,7 @@ A personal portfolio website built with React, Vite, and Tailwind CSS featuring 
 
 | Page | Route | Description |
 |------|-------|-------------|
-| Home | `/` | Hero section with typewriter intro and navigation buttons |
+| Home | `/` | Hero section with DecryptedText intro and navigation buttons |
 | About | `/about` | Personal bio and interests |
 | Projects | `/projects` | Interactive carousel showcase of work |
 | Contact | `/contact` | Contact information and links |
@@ -80,9 +81,11 @@ src/
       ProjectCarousel.jsx  # Horizontal scroll carousel
     ui/
       Button.jsx           # Styled button component
+      MagneticButton.jsx   # Interactive button with magnetism and animated border
+      NavLink.jsx          # Navbar links with magnetism and shine
+      DecryptedText.jsx    # Scramble-reveal text animation
       FadeIn.jsx           # Fade-in animation wrapper
-      TypewriterText.jsx   # Typewriter effect component
-      InterestTile.jsx     # About page interest tiles
+      InterestTile.jsx     # About page interest tiles (magnetism + tilt + glow)
   data/
     projects.json          # Project data
   pages/
